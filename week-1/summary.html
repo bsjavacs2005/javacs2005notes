@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 1 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-2/summary.html"
+                ><i class="fas fa-forward"></i> Week 2</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 1</h1>
+            <p>
+              Programming Concepts, Memory Management, Abstraction, and
+              Object-Oriented Fundamentals
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#programming-languages"
+                ><i class="fas fa-code me-2"></i>Languages</a
+              >
+              <a class="nav-link" href="#programming-styles"
+                ><i class="fas fa-laptop-code me-2"></i>Styles</a
+              >
+              <a class="nav-link" href="#memory-management"
+                ><i class="fas fa-memory me-2"></i>Memory</a
+              >
+              <a class="nav-link" href="#abstraction"
+                ><i class="fas fa-layer-group me-2"></i>Abstraction</a
+              >
+              <a class="nav-link" href="#oop"
+                ><i class="fas fa-cubes me-2"></i>OOP</a
+              >
+              <a class="nav-link" href="#classes"
+                ><i class="fas fa-object-group me-2"></i>Classes</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="programming-concepts" class="mb-5">
+            <h2>Programming concepts</h2>
+
+            <h3 id="programming-languages" class="mt-4">
+              Programming languages
+            </h3>
+            <h4>Programming language:</h4>
+            <p>
+              Programming languages are used to convey computational ideas to a
+              machine that can execute them. Machine language is the only
+              programming language that the machine can understand directly.
+              Machine language instructions are binary coded and low level
+              machine instructions may transfer the contents of one memory
+              location to a CPU register or add numbers in two registers. So,
+              let's take two registers R1 and R2. Add the contents of these two
+              registers and store the result back in R1. Then you would take the
+              contents of a register R1 put it back in memory. So, that you can
+              free up the register for later work and also ensures the data is
+              stored in memory. if you do not put it back in the memory the
+              value is lost when the computer is switched off. So, this is
+              obviously a very tedious and error prone way to program.
+            </p>
+            <p>
+              High level Programming languages were developed to enable
+              programmers to write programs faster than low level machine
+              language. A programming language is intended for mathematical
+              computation, allows programmers to express numerical equations
+              directly as:
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-code"></i> Pseudocode
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>X = (Y + Z) / 2</code></pre>
+            </div>
+
+            <p>
+              Since programs written in a high-level programming language are
+              not recognized by the machine directly, we must use a compiler or
+              interpreter to translate them to machine understandable language.
+            </p>
+
+            <h4 class="mt-4">Compiler:</h4>
+            <ul>
+              <li>
+                A compiler translates the entire program into machine language
+                in a single run.
+              </li>
+              <li>
+                Compiler is faster than an interpreter because it takes the
+                entire program during translation.
+              </li>
+              <li>
+                Compiler generates the intermediate code so it requires more
+                memory than interpreter.
+              </li>
+            </ul>
+
+            <h4 class="mt-4">Interpreter:</h4>
+            <ul>
+              <li>
+                An interpreter translates the entire program into machine
+                language line by line.
+              </li>
+              <li>
+                Interpreter is slower than an compiler because it translates the
+                program line by line.
+              </li>
+              <li>
+                Interpreter never generates the intermediate code so it requires
+                less memory than compiler.
+              </li>
+            </ul>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="programming-styles" class="mb-5">
+            <h2>Programming styles</h2>
+            <p>
+              There are mainly two types of programming styles: Imperative and
+              Declarative programming.
+            </p>
+
+            <h3 class="mt-4">Imperative programming:</h3>
+            <ul>
+              <li>
+                An imperative programming tells the computer exactly how to do
+                something?
+              </li>
+              <li>
+                In imperative style, we tell how exactly we want to achieve the
+                result.
+              </li>
+              <li>In imperative style use intermediate variables.</li>
+            </ul>
+
+            <p><strong>Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>def factorial(n):
+    f = 1
+    while n > 0:
+        f = f * n
+        n = n - 1
+    return f
+print(factorial(5))</code></pre>
+            </div>
+
+            <h3 class="mt-4">Declarative Programming:</h3>
+            <ul>
+              <li>
+                A declarative programming means tells the computer what would we
+                like to do and leave the part of how to do it.
+              </li>
+              <li>
+                In declarative style we actually say what results we want to get
+                or what exactly we want to do.
+              </li>
+              <li>In declarative style does not use intermediate variables.</li>
+            </ul>
+
+            <p><strong>Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>def factorial(n):
+    if n == 1 or n == 0:
+        return 1
+    else:
+        return (n * factorial(n - 1))
+print(factorial(5))</code></pre>
+            </div>
+
+            <h3 class="mt-4">The role of types</h3>
+            <p>
+              A variable is a memory location to store a value, and every
+              variable has a type. How is the variable type determined in Java
+              and Python? Python uses dynamic typing for variables where
+              variable type is determined by assigning a value to it. During
+              runtime variable value decides its type.
+            </p>
+
+            <p><strong>Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>x = 10 # x is of type int
+x = 7.5 # now x is of type float</code></pre>
+            </div>
+
+            <p>
+              If you determine the type in advance then it is called
+              <code>static typing</code>. Java associates a type in advance with
+              every variable name. Any type of mismatch errors must be caught by
+              the compiler during compilation.
+            </p>
+
+            <p><strong>Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int x, float a;
+x = 7.5;
+y = 6.57</code></pre>
+            </div>
+
+            <p>
+              In the above statements, two variables are declared and variable
+              <code>x</code> is initialized with incompatible value. In Java,
+              any type of errors is caught early by the compiler. If you try to
+              assign an incompatible value to a variable, the compiler will
+              identify it and throw an error.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="memory-management" class="mb-5">
+            <h2>Memory management</h2>
+            <p>
+              Whenever a function is invoked for execution, function needs
+              memory for local variables, these local variables are used to
+              store the intermediate results.
+            </p>
+
+            <h3 class="mt-4">Activation Record</h3>
+            <ul>
+              <li>
+                An activation record is a block of memory associated with an
+                invocation of a function.
+              </li>
+              <li>
+                An activation record is pushed into the stack when a function is
+                called and it is popped out when the control returns to the
+                caller function.
+              </li>
+            </ul>
+
+            <p>
+              Consider an example given below<br /><strong>Example:</strong>
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>def factorial(n):
+    if n == 1 or n == 0:
+        return 1
+    else:
+        return (n * factorial(n - 1))
+print(factorial(3))</code></pre>
+            </div>
+
+            <div class="text-center my-4">
+              <img
+                src="../assets/Activation records.jpg"
+                alt="Activation Records Diagram"
+                class="img-fluid rounded border"
+                style="max-width: 50%"
+              />
+            </div>
+
+            <p>
+              Whenever <code>factorial(3)</code> is called one activation is
+              record is inserted into the stack memory, every activation record
+              has memory for local variables, <code>control link</code> and
+              <code>return value link</code>.
+            </p>
+            <ul>
+              <li>
+                <code>Control links</code> points to the
+                <code>previous activation record</code>.
+              </li>
+              <li>
+                <code>Return value link</code> tells where to store the result.
+              </li>
+            </ul>
+
+            <p>
+              In above image <code>factorial(3)</code> calls
+              <code>factorial(2)</code> and <code>factorial(2)</code> calls
+              <code>factorial(1)</code> so that two more activation records will
+              be inserted in stack memory as shown in the figure.
+            </p>
+            <p>
+              Here <code>factorial(2)</code> control link points to the
+              <code>factorial(3)</code> and <code>factorial(2)</code> control
+              link points to the <code>factorial(1)</code>.
+            </p>
+            <p>
+              Here <code>factorial(2)</code> return value will be stored in
+              <code>factorial(3)</code>, and the
+              <code>factorial(1)</code> return value will be stored in
+              <code>factorial(2)</code>.
+            </p>
+
+            <h3 class="mt-4">Heap memory</h3>
+            <p>
+              Heap memory is used for the dynamic memory allocation in Java at
+              the time of execution (runtime). Whenever new objects are created,
+              memory would be allocated in the heap memory. For example
+              <code>LinkedList</code> uses
+              <code>dynamic memory allocation</code>, it requires memory for new
+              nodes as needed. <code>LinkedList</code> is implemented in heap
+              memory because it's size is not fixed and can grow and shrink as
+              needed whenever a node is inserted or deleted.
+            </p>
+            <p>
+              Unlike stack memory, allocations in heap memory are not free-up
+              automatically. <code>Java Virtual Machine</code> uses a mechanism
+              called <code>Garbage collection</code> to free-up the heap memory
+              allocations. It identifies the objects which are not being used
+              anymore by the Java program in execution and frees up the unused
+              memory so other new objects can use that piece of memory.
+            </p>
+            <p>
+              In other programming languages like C and C++, programmer has to
+              take care of freeing the memory allocated to unused objects. As a
+              result it consumes the programmer time and increases the code
+              complexity.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="abstraction" class="mb-5">
+            <h2>Abstraction and Modularity</h2>
+
+            <h3 class="mt-4">Stepwise refinement</h3>
+            <p>
+              Consider the problem of computing and printing the first 1000
+              prime numbers. How this task can be achieved? To achieve this task
+              we can develop a program by first outlining the major tasks that
+              it should perform and then successively refining these tasks into
+              smaller subtasks, until a level is reached at which each remaining
+              task can be expressed easily by basic operations. This produces
+              subproblems that are small enough to be understood and separate
+              enough to be solved independently. See the first version of this
+              program.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-code"></i> Pseudocode
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>begin
+    print first thousand prime numbers
+end</code></pre>
+            </div>
+
+            <p>
+              The above task can now be divided into subtasks. To divide the
+              problem in two, some data structure must be selected for passing
+              the result of the first subtask to the second. Here the data
+              structure is a table, which will be filled with the first 1000
+              prime numbers.
+            </p>
+            <p>See the second version of this program.</p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-code"></i> Pseudocode
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>begin
+    declare table p
+    fill table p with first thousand primes
+    print table p
+end</code></pre>
+            </div>
+
+            <p>
+              In the next version each subtask are further elaborated. Here each
+              subtask is considered independently, the problem of filling the
+              table with primes is independent of the problem of printing the
+              table. Therefore, each subtask can be assigned to a different
+              programmer, allowing the problems to be solved at the same time by
+              different people. See the final version of this program.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-code"></i> Pseudocode
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>begin
+    integer array p[1:1000]
+    for k from 1 through 1000
+        make p[k] equal to the kth prime number
+    for k from 1 through 1000
+        print p[k]
+end</code></pre>
+            </div>
+
+            <h3 class="mt-4">Data refinement</h3>
+            <p>
+              In addition to dividing the tasks into simpler and manageable
+              subtasks, evolution in a system design may lead to changes in the
+              data structures that are used to combine the actions of
+              independent modules.
+            </p>
+            <p>
+              Consider developing a simple banking program. The main goal of
+              this program is to create a new account, deposit an amount,
+              withdraw an amount, and print monthly/quarterly bank statements.
+              In the first version of this program, we might formulate a system
+              design that has the following functions:
+            </p>
+            <p>
+              <code
+                >CreateAccount(), Deposit()/Withdraw(), PrintStatement()</code
+              >
+            </p>
+            <p>
+              In this program development, the main function receives a list of
+              input transactions and calls the appropriate functions. Assume
+              that statements only contain the account number and balance, then
+              we can represent a single bank account by an integer value and
+              store all bank accounts in a single integer array.
+            </p>
+            <p>
+              Later refine the task Print Statement() to include the subtask
+              "Print the transactions list," then we will have to maintain a
+              record of bank transactions. For this refinement, we will have to
+              replace the integer array with some other data structure that
+              records the sequence of transactions that have occurred since the
+              last statement. This may require changes in the behavior of all
+              the subtasks, as all of them perform operations on bank accounts.
+            </p>
+
+            <h3 class="mt-4">Modular software development</h3>
+            <p>
+              <code>Divide and conquer</code> is one of the fundamental
+              technique. It is important to divide large and complex programs
+              into smaller and manageable parts called functions or procedures,
+              that can be solved independently. Use refinement to divide the
+              program into functions or procedures. These functions or
+              procedures called to generate the solutions. The solutions
+              generated by these functions are combined to provide the overall
+              solution for the main program.
+            </p>
+            <p>
+              Prototyping is a development method, involves implementing smaller
+              parts of a program in a simple way to understand if the design
+              will really work. Then, after the design has been tested in some
+              way, one can improve parts of the program independently by
+              reimplementing them.
+            </p>
+            <p>
+              There are two important concepts in modular program development:
+              interfaces and specifications.
+            </p>
+            <ul>
+              <li>
+                <code>Interface</code>: It is a description of the parts of a
+                component that are visible to other program components.
+              </li>
+              <li>
+                <code>Specification</code>: It is a description of the behavior
+                of a component, as observable through its interface.
+              </li>
+            </ul>
+
+            <h3 class="mt-4">Programming language support for abstraction</h3>
+            <p>
+              In programming languages, an abstraction is an important
+              <code>object oriented principle</code> that separates a
+              implementation of program from it's interface.
+            </p>
+
+            <h4>Control abstraction</h4>
+            <p>
+              In earlier days of programming, abstractions are implemented using
+              the <code>procedures</code> or <code>functions</code>.
+            </p>
+            <p>
+              <code>procedures</code> or <code>functions</code> are used
+              encapsulate the block of code, and the implementation of a
+              function is the function body, which consists of the instructions
+              that will be executed whenever function is being invoked.
+            </p>
+
+            <h4>Data abstraction</h4>
+            <p>
+              Data abstraction is refers to the hiding information about the way
+              data is represented.
+            </p>
+
+            <h4>Abstract datatype</h4>
+            <p>
+              <code>Abstract datatype</code> exposes what the operations that
+              are performed on the data structure and what are the values
+              permitted to store in the data structure rather than how it is
+              implemented. Here the operations and values permitted on the data
+              structure are visible to the other parts of a program using a
+              public <code>interface</code> .
+            </p>
+            <p>There are three main goals of abstraction:</p>
+            <ol>
+              <li>
+                Identify the interface of the data structure. The interface of a
+                data abstraction contains the operations permitted on the data
+                structure, and their arguments and return result.
+              </li>
+              <li>
+                Provides information hiding by separating implementation
+                decisions from parts of the program that use the data structure
+                through an interface.
+              </li>
+              <li>
+                Allows the data structure to be used in many different ways by
+                many other programs.
+              </li>
+            </ol>
+
+            <div class="note-box">
+              <h5><i class="fas fa-lightbulb me-2"></i>Example</h5>
+              <p class="mb-0">
+                Stack is a linear data structure. If it is implemented using an
+                array, then programs that use a stack abstract data type can see
+                and use only the operations performed on the stack (push() and
+                pop()), not array operations such as indexing into the array at
+                arbitrary points. This hides information about the
+                implementation of a data structure and allows the implementer of
+                the data structure to make changes without affecting parts of
+                the programs that use the data structure.
+              </p>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="oop" class="mb-5">
+            <h2>Object-oriented programming</h2>
+            <p>
+              There are few basic concepts of object-oriented programming (OOP).
+            </p>
+
+            <h3 class="mt-4">Object</h3>
+            <p>
+              Object are like abstract datatypes. Every object has its own data
+              (also called state) and operations (also called methods/messages).
+              A program written in object-oriented style will consist of
+              interacting objects. For example, a <code>Student</code> object
+              may consist of data such as name, gender, birth date, home
+              address, phone, and age, and operations for assigning and changing
+              these data values.
+            </p>
+
+            <h3 class="mt-4">Inheritance</h3>
+            <p>
+              Inheritance is the process by which one object re-use the
+              implementations of another object. For example if you consider an
+              organization that has two types of employee namely
+              <code>Employee</code> and <code>Manager</code>. A
+              <code>Manager</code> is also an <code>Employee</code> but every
+              <code>Employee</code> is not a <code>Manager</code>.
+            </p>
+            <p>
+              Here <code>Employee</code> class has functionality like basic
+              personal data, date of joining. This same data also required for a
+              <code>Manager</code> class, using inheritance we can use the
+              functionality of <code>Employee</code> in the
+              <code>Manager</code> class. You can also add extra functionality
+              to the <code>Manager</code> like
+              <code>date of promotion, seniority (in current role)</code> if
+              required .
+            </p>
+
+            <h3 class="mt-4">Subtyping</h3>
+            <p>
+              A subtype is a specialization of a type, If A is a subtype of B,
+              wherever an object of type B is needed, an object of type A can be
+              used. Every object of type A is also an object of type B. If f()
+              is a method in B and A is a subtype of B, every object of A also
+              supports f().
+            </p>
+            <p>Consider the code given below:</p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Employee:
+    def __init__(self,n='',s=0.0):
+       self.name = n
+       self.salary = s
+    def bonus(self):
+       return(0.1*self.salary)
+class Manager(Employee):
+    def __init__(self,n='',s=0.0):
+       self.name = n
+       self.salary = s
+    def bonus(self):
+       return(0.2*self.salary)</code></pre>
+            </div>
+
+            <p>
+              Here <code>Manager</code> is a subtype of an
+              <code>Employee</code>. Wherever an object of
+              <code>Employee</code> (super type) is required, an object of
+              <code>Manager</code>can be used. If bonus() is a function in
+              <code>Employee</code> and <code>Manager</code> is a subtype of
+              <code>Employee</code>, every object of <code>Manager</code> also
+              supports bonus(). Implementation of bonus() can be different in
+              <code>Manager</code>.
+            </p>
+
+            <h3 class="mt-4">Inheritance vs Subtyping</h3>
+            <p>
+              In object-oriented programming, inheritance and subtyping both are
+              essential.
+            </p>
+            <ul>
+              <li>
+                Subtyping refers to compatibility of interfaces. A type
+                <code>A</code> is a subtype of <code>B</code>, wherever an
+                object of type <code>B</code> is needed, an object of type
+                <code>A</code> can be used.
+              </li>
+              <li>
+                Inheritance refers to reuse of implementations. If a type
+                <code>A</code> inherits from another type <code>B</code>, then
+                <code>A</code> can reuse the functionality of
+                <code>B</code> without redefining it, and type
+                <code>A</code> can also add more features to it if required.
+              </li>
+            </ul>
+            <p>
+              Consider the data structure deque, a double-ended queue. A deque
+              supports insertion and deletion at both ends, so it has four
+              functions <code>insert-front</code>, <code>delete-front</code>,
+              <code>insert-rear</code> and <code>delete-rear</code>. If we use
+              just <code>insert-rear</code> and <code>delete-front</code> we get
+              a normal queue. On the other hand, if we use just
+              <code>insert-front</code> and <code>delete-front</code>, we get a
+              stack. In other words, we can implement queues and stacks in terms
+              of deques, so as datatypes, <code>Stack</code> and
+              <code>Queue</code> inherit from <code>Deque</code>. On the other
+              hand, neither <code>Stack</code> nor <code>Queue</code> are
+              subtypes of <code>Deque</code> since they do not support all the
+              functions provided by <code>Deque</code>. In fact, in this case,
+              <code>Deque</code> is a subtype of both <code>Stack</code> and
+              <code>Queue</code>
+            </p>
+
+            <h3 class="mt-4">Dynamic lookup</h3>
+            <p>
+              Dynamic lookup means that a method to be invoked at run time,
+              according to the implementation of the object that receives a
+              message. The important property of dynamic lookup is that
+              different objects may implement the same method differently.
+            </p>
+            <p>
+              Dynamic lookup is an important part of object-oriented
+              programming. Consider, for example, a simple graphics application
+              that draws the shapes such as squares, circles, and triangles.
+              Each square object may contain a draw method with code to draw a
+              square, each circle a draw method that contains code to draw a
+              circle, and so on. When the program wants to draw a given shape,
+              sending a draw message to each shape. The part of the program that
+              sends the draw message does not have to know which kind of shape
+              will receive the message. Instead, each shape receiving a draw
+              message will know how to draw that shape. This makes sense because
+              the programmer who implements a specific shape knows how to draw
+              that kind of shape.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="classes" class="mb-5">
+            <h2>Classes</h2>
+            <p>
+              A class is a template that describes what objects can and cannot
+              do. An object is an instance of a class. Class describes how data
+              is stored in objects and how the public functions/methods
+              manipulate this data.
+            </p>
+
+            <h3 class="mt-4">Example: 2D points</h3>
+            <p>
+              To understand the basic ideas and limitations of the Python
+              language, consider the following example program in Python.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Point:
+    def __init__(self,a=0,b=0):
+        self.x = a
+        self.y = b</code></pre>
+            </div>
+
+            <p>
+              In the above example, the class <code>Point</code> is defined.
+              Each instance of the <code>Point</code> class has its own instance
+              variables <code>x</code> and <code>y</code>. These instance
+              variables store the <code>x</code> coordinate and
+              <code>y</code> coordinate of a point in a 2D space, allowing us to
+              identify the location of a point in 2D space.
+            </p>
+            <p>
+              For example, if <code>p1</code> and <code>p2</code> are two
+              instances of the <code>Point</code> class, then the instance
+              variables associated with <code>p1</code> and <code>p2</code> are
+              denoted as <code>p1.x</code>, <code>p1.y</code>,
+              <code>p2.x</code>, and <code>p2.y</code>.
+            </p>
+
+            <h3 class="mt-4">Adding methods to a class</h3>
+            <p>
+              We can manipulate the object's internal data by adding functions
+              in the class. For example, if we want to shift a point by a
+              certain amount given by $\Delta x$ and $\Delta y$, we can define a
+              function for it.
+            </p>
+            <p>
+              After shifting, the point becomes ($x$, $y$) $\to$ ($x + \Delta
+              x$, $y + \Delta y$).
+            </p>
+            <p>
+              You can also calculate the distance from the origin using the
+              formula:
+            </p>
+            <p>d = $\sqrt{x^2 + y^2}$ , we can define a function for it. $x$</p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Point:
+    def __init__(self,a=0,b=0):
+        self.x = a
+        self.y = b
+    def translate(self,dx,dy):
+        self.x += dx
+        self.y += dy
+    def odistance(self):
+        import math
+        d = math.sqrt(self.x*self.x +
+        self.y*self.y)
+        return(d)</code></pre>
+            </div>
+
+            <h3 class="mt-4">Changing the internal implementation</h3>
+            <p>
+              Now let's see how to represent a point in terms of distance $r$
+              and angle $\theta$, which is called the polar representation. In
+              the polar representation, a point is denoted by ($r$ , $\theta$),
+              where $r$ represents the distance from the origin and $\theta$
+              represents the angle measured from the x-axis.
+            </p>
+            <p>$r$ = $\sqrt {x^2 + y^2} $</p>
+            <p>$\theta$ = $ {tan^-1}$ ($y$ / $x$)</p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import math
+class Point:
+    def __init__(self,a=0,b=0):
+        self.r = math.sqrt(a*a + b*b)
+        if a == 0:
+            self.theta = math.pi/2
+        else:
+            self.theta = math.atan(b/a)
+    def odistance(self):
+        return(self.r)</code></pre>
+            </div>
+
+            <p>
+              In above program we are passing $x$ and $y$ values but internally
+              polar coordinates ($r$ , $\theta$) were initialized using these
+              values. Here user not aware that internally instead of $x$ and $y$
+              the instance variables have changed to $r$ and $\theta$.
+            </p>
+            <p>
+              To translate the polar coordinates to Cartesian coordinates, we
+              can convert ($r$ , $\theta$) to ($x$ , $y$) using the following
+              formulas:
+            </p>
+            <p>$x = r \cdot \cos(\theta)$</p>
+            <p>$y = r \cdot \sin(\theta)$</p>
+            <p>
+              Now recompute the polar coordinates ($r$ , $\theta$) from ($x$ +
+              $\Delta$ $x$, $y$ + $\Delta$ $y$)
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>def translate(self,dx,dy):
+    x = self.r*math.cos(self.theta)
+    y = self.r*math.sin(self.theta)
+    x += dx
+    y += dy
+    self.r = math.sqrt(x*x + y*y)
+    if x == 0:
+        self.theta = math.pi/2
+    else:
+        self.theta = math.atan(y/x)</code></pre>
+            </div>
+
+            <p>
+              We can use the same constructor definition to set both the
+              cartesian coordinates ($x$, $y$) and polar coordinates ($r$,
+              $\theta$). In this way, the constructor definition remains
+              unchanged, and the user does not need to be aware of whether the
+              representation is in terms of ($x$, $y$) or ($r$, $\theta$).
+            </p>
+
+            <h3 class="mt-4">Abstraction:</h3>
+            <p>
+              The purpose of abstraction is to hide the implementation details
+              from the user. In the case of the <code>Point</code> class, the
+              user should not be concerned about whether it represents cartesian
+              coordinates ($x$, $y$) or polar coordinates ($r$, $\theta$). Even
+              though the constructor remains the same, the internal
+              representation may vary. This allows the user to interact with the
+              <code>Point</code> object using a consistent interface, regardless
+              of how the data is actually stored internally.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Point:
+    def __init__(self,a=0,b=0):
+        self.x = a
+        self.y = b</code></pre>
+            </div>
+
+            <p>In above program point representation is ($x$ , $y$).</p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Point:
+    def __init__(self,a=0,b=0):
+        self.r = math.sqrt(a*a + b*b)
+        if a == 0:
+            self.theta = math.pi/2
+        else:
+            self.theta = math.atan(b/a)</code></pre>
+            </div>
+
+            <p>In above program point representation is ($r$ , $\theta$).</p>
+            <p>
+              In Python, direct access to instance variables from outside the
+              class is allowed, which means that abstraction is not enforced in
+              the language.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>p = Point(5,7)
+p.x = 4 # Point is now (4,7)</code></pre>
+            </div>
+
+            <div class="note-box">
+              <h5>
+                <i class="fas fa-exclamation-circle me-2"></i>Note on Python
+                Abstraction
+              </h5>
+              <p class="mb-0">
+                In the above code, during object creation, the arguments (5, 7)
+                are passed to the constructor. However, the statement
+                <code>p.x = 4</code> changes the value of <code>x</code> to 4,
+                resulting in a new state of the object as (4, 7). According to
+                the concept of abstraction, this should not happen, as it
+                violates the idea of encapsulation and can have an impact on
+                other parts of the code. In Python, abstraction is highly
+                dependent on the discipline of the programmer to respect the
+                encapsulation and not access or modify the internal
+                implementation details directly.
+              </p>
+            </div>
+
+            <h3 class="mt-4">Subtyping and inheritance</h3>
+            <p>
+              Let's explore the concept of subtyping and inheritance in the
+              context of Python.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Rectangle:
+    def __init__(self,w=0,h=0):
+        self.width = w
+        self.height = h
+    def area(self):
+        return(self.width*self.height)
+    def perimeter(self):
+        return(2*(self.width+self.height))
+class Square(Rectangle):
+    def __init__(self,s=0):
+        self.width = s
+        self.height = s</code></pre>
+            </div>
+
+            <p>
+              In above example <code>Rectangle</code> has two dimensions a
+              <code>width</code> and <code>height</code>. We have a constructor
+              for <code>Rectangle</code> to initialize the internal instance
+              variables <code>self.width</code> and <code>self.height</code>.
+              And has two public functions <code>area</code> and
+              <code>perimeter</code>.
+            </p>
+            <p>
+              Now one more class <code>Square</code> is defined, a square is a
+              rectangle in which the width is equal to the height. So, we can
+              now define a <code>Square</code> to be a sub type of
+              <code>Rectangle</code>. In Python we do this is that in the class
+              definition of square put the type <code>Rectangle</code> in the
+              bracket.
+            </p>
+            <p>
+              Here <code>Square</code> is a specialization of a
+              <code>Rectangle</code> and here we can define a new constructor
+              because <code>Square</code> have one quantity that is
+              <code>side</code> it do not have a <code>width</code> and a
+              <code>height</code> and will reset the width and the height both
+              using <code>side</code> value. The constructor of
+              <code>Square</code> that we have defined here is different from
+              <code>Rectangle</code> there because there we got two parameters
+              and we set them but here we get only one parameter.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>s = Square(5)
+a = s.area()
+p = s.perimeter()</code></pre>
+            </div>
+
+            <p>
+              In above I want a <code>Square</code> with side 5 this will create
+              implicitly an object which has width and height values as 5. After
+              that now calling <code>s.area()</code> for the area of the square,
+              will return a legitimate value of 25 even though inside this there
+              is no <code>area</code> function here. This is the idea of
+              inheritance. <code>Square</code> is a sub type of
+              <code>Rectangle</code> the functions which are defined inside
+              <code>Rectangle</code> are available to <code>Square</code>. So,
+              we do not have to redefine them unless we want to change them. So,
+              <code>perimeter</code> and <code>area</code> are both inherited by
+              <code>Square</code> from <code>Rectangle</code>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-python"></i> Python
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Rectangle:
+    def __init__(self,w=0,h=0):
+        self.width = w
+        self.height = h
+    def area(self):
+        return(self.width*self.height)
+    def perimeter(self):
+        return(2*(self.width+self.height))
+class Square(Rectangle):
+    def __init__(self,s=0):
+        self.side = s</code></pre>
+            </div>
+
+            <p>
+              Now suppose if I decided that in a <code>Square</code> I do not
+              want to keep track of two separate variables there is only one
+              variable that is <code>side</code>. Now if we try the same code
+              which earlier work due to inheritance. These two functions will
+              now at run time they will fail.
+            </p>
+            <p>
+              Statically these functions are available because
+              <code>Square</code> has been defined to be a subtype of
+              <code>Rectangle</code>. So, those functions are available to
+              <code>Square</code>. So, if they are not defined in
+              <code>Square</code> and if I say <code>s.area()</code> Python has
+              no way to know before running the code that this
+              <code>s.area()</code> will not work. But when it actually comes to
+              executing <code>s.area()</code> it will check that these
+              quantities <code>self.width()</code> and
+              <code>self.height()</code>.
+            </p>
+            <p>
+              Here <code>Square</code> constructor changing the instance
+              variable <code>self.side</code> but we did not update
+              <code>self.width</code> or <code>self.height</code> explicitly.
+              Since we did not update them they become undefined variables. So
+              <code>perimeter</code> and <code>area</code> are used for their
+              calculations because self <code>s.width</code> and
+              <code>s.height</code> have not been defined.
+            </p>
+            <p>
+              The subtype <code>Square</code> is not forced be an extension of
+              the parent type. The subtype can do everything the parent type
+              will do and more and in particular that means that it should have
+              all the instance variables that the parent type would have
+              declared and more because the functions would use these instance
+              variables. But here in Python we are able to do this, we can set
+              up instance variables in the subtype and omit some instance
+              variables from the parent type. So, this is clearly not a good
+              thing.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-2/summary.html"
+                  ><i class="fas fa-forward me-2"></i>Week 2</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
