@@ -1,0 +1,1501 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 2 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-1/summary.html"
+                ><i class="fas fa-backward"></i> Week 1</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-3/summary.html"
+                ><i class="fas fa-forward"></i> Week 3</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 2</h1>
+            <p>
+              Introduction to Java, Basic Syntax, Data Types, Control Flow, and
+              OOP Fundamentals
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#basic-program"
+                ><i class="fas fa-code me-2"></i>Basic Program</a
+              >
+              <a class="nav-link" href="#modifiers"
+                ><i class="fas fa-shield-alt me-2"></i>Modifiers</a
+              >
+              <a class="nav-link" href="#saving-running"
+                ><i class="fas fa-play-circle me-2"></i>Save & Run</a
+              >
+              <a class="nav-link" href="#data-types"
+                ><i class="fas fa-database me-2"></i>Data Types</a
+              >
+              <a class="nav-link" href="#operators-casting"
+                ><i class="fas fa-calculator me-2"></i>Operators & Casting</a
+              >
+              <a class="nav-link" href="#strings-arrays"
+                ><i class="fas fa-layer-group me-2"></i>Strings & Arrays</a
+              >
+              <a class="nav-link" href="#control-flow"
+                ><i class="fas fa-random me-2"></i>Control Flow</a
+              >
+              <a class="nav-link" href="#classes-objects"
+                ><i class="fas fa-cubes me-2"></i>Classes & Objects</a
+              >
+              <a class="nav-link" href="#constructors"
+                ><i class="fas fa-hammer me-2"></i>Constructors</a
+              >
+              <a class="nav-link" href="#io"
+                ><i class="fas fa-exchange-alt me-2"></i>Input / Output</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="introduction" class="mb-5">
+            <p>
+              This is an introduction to Java programming language, this chapter
+              is an essential resource that will provide you with the knowledge
+              and tools you need to begin writing Java code. We'll start by
+              writing simple pieces of code, to saving them on the system and
+              finally executing the programs to perform the desired operation.
+            </p>
+          </section>
+
+          <section id="basic-program" class="mb-5">
+            <h2>Basic JAVA Program</h2>
+            <p>Let's start with the most basic Java program as an example:</p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class FirstProgram{
+    public static void main(String[] args){
+        System.out.println("Hello World");
+    }
+}</code></pre>
+            </div>
+
+            <p>
+              Java is a case-sensitive programming language, meaning that it
+              treats uppercase and lowercase letters as distinct characters.
+              Writing <code>Main</code> instead of <code>main</code> will not
+              work. Also, the variable names <code>firstName</code> and
+              <code>firstname</code> are considered to be different variables in
+              Java.
+            </p>
+            <p>
+              In Java, the <code>main</code> method is used by default as the
+              starting point of a program.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="modifiers" class="mb-5">
+            <h2>Modifiers</h2>
+            <p>
+              Modifiers play an important role in any Java program. A modifier
+              in Java is a keyword that is used to change the behavior of a
+              class, method, or field. Example visibility can be controlled
+              using modifiers like <code>public</code>, <code>private</code>.
+              Using the above program as example we can see two modifiers. Let
+              us closely understand them:
+            </p>
+
+            <h4 class="mt-4">1. public</h4>
+            <p>
+              This is an access modifier and it allows access to the class,
+              method or field from anywhere across the program.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class A{
+    private int num;
+    public A(int num){
+        this.num = num;
+    }
+}
+public class B{
+    public static void main(String[] args){
+        A var = new A(10);
+        System.out.println(var.num);
+        //Throws error since num is a private variable in class A, it cannot be accessed inside class B.
+    }
+}</code></pre>
+            </div>
+
+            <h4 class="mt-4">2. static</h4>
+            <p>
+              Allows us to use the method or field without creating an instance
+              of the class.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class A{
+    public void printa(){
+        System.out.println("We are inside class A.");
+    }
+}
+class B{
+    public static void printb(){
+        System.out.println("We are inside class B.");
+    }
+}
+public class C{
+    public static void main(String[] args){
+        A obj = new A();
+        obj.printa(); //We need an object of class A in order to call printa method
+        //A.printa() is not possible
+        B.printb(); //We can directly call printb method because it's static
+    }
+}</code></pre>
+            </div>
+            <p class="mt-2 text-muted">
+              <small
+                ><em
+                  >We will learn them in more detail in the upcoming chapters,
+                  so it's normal if you find any of the given examples
+                  confusing.</em
+                ></small
+              >
+            </p>
+
+            <h3 class="mt-5">Return Type</h3>
+            <p>
+              In Java, return type refers to the data type of the value that is
+              returned by the method. Let's look at a simple example to
+              understand this.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public int square(int num){
+    return num*num;
+}</code></pre>
+            </div>
+            <p>
+              In the given example, we can see that the function named square
+              takes in a number which is of type integer and it returns the
+              square of that number, which is an integer in itself. Therefore,
+              we have specified <code>int</code> as the return type of the
+              function.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="saving-running" class="mb-5">
+            <h2>Saving & Running a JAVA Program</h2>
+
+            <h3 class="mt-4">Saving a JAVA Program</h3>
+            <p>
+              There are certain rules we need to follow in order to save a Java
+              program before we can finally run it. The file name needs to be
+              exactly same as the class contained in the file.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class myprogram{
+    public int num;
+    public void printNum(){
+        System.out.print(num);
+    }
+}</code></pre>
+            </div>
+            <p>
+              The above program needs to be saved in a file named
+              <code>myprogram.java</code> for it to be ready for execution. Note
+              that it is necessary for every file to have the extension
+              <code>.java</code>.
+            </p>
+
+            <h3 class="mt-4">Running a JAVA Program</h3>
+            <p>
+              In order to run a Java Program, we first need to compile the saved
+              program to bytecode before we can finally run it, which can be
+              done using the command <code>javac</code>, for example:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-terminal"></i> Bash
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>javac myprogram.java</code></pre>
+            </div>
+            <p>
+              This creates a new file named <code>myprogram.class</code> which
+              contains the bytecode that can be executed using the command
+              <code>java</code>, like:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-terminal"></i> Bash
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>java myprogram</code></pre>
+            </div>
+            <div class="note-box">
+              <h5><i class="fas fa-info-circle me-2"></i>Note</h5>
+              <p class="mb-0">
+                While running the bytecode we do not need to specify any
+                extension like <code>.java</code> or <code>.class</code>.
+              </p>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="data-types" class="mb-5">
+            <h2>Primitive Data Types</h2>
+            <p>
+              Data types are a fundamental concept any programming language and
+              refer to the type of values that can be stored within a specific
+              variable.
+            </p>
+            <p>
+              A primitive data type in Java is a basic data type that is built
+              into the Java language and is not an object created from a class.
+              There are 8 primitive data types in java:
+            </p>
+
+            <ul class="list-unstyled mt-4">
+              <li class="mb-4">
+                <h5><code>int</code></h5>
+                <p>
+                  An integer data type is a data type that represents whole
+                  numbers. An integer is typically represented using 4 bytes, or
+                  32 bits. It can be used to represent values between
+                  -2,147,483,648 and 2,147,483,647.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>int num = 1000000007; //an example of how to use integer</code></pre>
+                </div>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>short</code></h5>
+                <p>
+                  It is a 16-bit integer that can represent values ranging from
+                  -32,768 to 32,767. The <code>short</code> data type is smaller
+                  than the <code>int</code> data type, which is also used to
+                  store integers in Java. However, using <code>short</code> can
+                  be useful in situations where memory is a concern, or when the
+                  range of data we've to work with is small.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>short num = 12345; //an example of how to use short</code></pre>
+                </div>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>byte</code></h5>
+                <p>
+                  In Java, the byte data type is an 8-bit signed integer that
+                  can represent values from -128 to 127. It is commonly used to
+                  store small integer values, ASCII values, etc.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>byte num = 125; //an example of how to use byte</code></pre>
+                </div>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>long</code></h5>
+                <p>
+                  In Java, the long data type is a 64-bit signed integer that
+                  can represent values from -9,223,372,036,854,775,808 to
+                  9,223,372,036,854,775,807. It is used to store large integer
+                  values that exceed the range of the int data type.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>long num = 123456789L; //an example of how to use long</code></pre>
+                </div>
+                <p>
+                  <small
+                    >In this example, we declare a long variable named "num" and
+                    assign it the value 123456789. Note that we need to append
+                    the letter "L" to the end of the literal value to indicate
+                    that it is a long value. If we don't include the "L", Java
+                    will interpret the value as an int and raise a compilation
+                    error if it exceeds the maximum value of an integer.</small
+                  >
+                </p>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>float</code></h5>
+                <p>
+                  Float data type is a 32-bit single-precision floating point
+                  number. It is used to represent decimal values that require
+                  less precision than the double data type (approximately 6–7
+                  significant decimal digits).
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>float num = 3.1415f; //an example of how to use float</code></pre>
+                </div>
+                <p>
+                  <small
+                    >Note that we need to append the letter "f" to the end of
+                    the literal value to indicate that it is a float value. If
+                    we don't include the "f", Java will interpret the value as a
+                    double and raise a compilation error.</small
+                  >
+                </p>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>double</code></h5>
+                <p>
+                  In Java, the double data type is a 64-bit double-precision
+                  floating point number. It is used to represent decimal values
+                  that require more precision than the float data type (15
+                  significant decimal digits).
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>double d = 3.14159; //an example of how to use double</code></pre>
+                </div>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>char</code></h5>
+                <p>
+                  The char data type is used to represent a single character. It
+                  is a 16-bit Unicode character that can store characters from
+                  the Unicode character set, which includes alphabets, digits,
+                  punctuation marks, and other symbols.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>char c = 'A'; //an example of how to use char</code></pre>
+                </div>
+              </li>
+
+              <li class="mb-4">
+                <h5><code>boolean</code></h5>
+                <p>
+                  The boolean data type is used to represent true/false values.
+                  It is a primitive data type that can only take two values,
+                  true or false.
+                </p>
+                <div class="code-block-wrapper">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>boolean b = true; //an example of how to use boolean</code></pre>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="operators-casting" class="mb-5">
+            <h2>Declaring and Initializing Variables</h2>
+            <p>
+              A variable is used to store data in a Java program. We can declare
+              variables by specifying the type followed by the name of variable.
+              Example if we want to initialize an integer with value 100, we can
+              do it as follows:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int num = 100; //declaring and initialising variable at the same time</code></pre>
+            </div>
+            <p>or we can declare the variable before initialising it:</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int num; //declaring variable
+num = 100; //initialising variable</code></pre>
+            </div>
+
+            <h3 class="mt-5">Arithmetic Operators</h3>
+            <p>
+              Arithmetic operators are a set of mathematical operations used to
+              perform arithmetic operations in Java programming language. They
+              are used to perform basic mathematical operations like addition,
+              subtraction, multiplication, division, and modulus (remainder) on
+              numeric data types such as integers, floating-point numbers, etc.
+              Arithmetic operators have the following symbols:
+            </p>
+            <ul>
+              <li>Addition (<code>+</code>)</li>
+              <li>Subtraction (<code>-</code>)</li>
+              <li>Multiplication (<code>*</code>)</li>
+              <li>Division (<code>/</code>)</li>
+              <li>Modulus (<code>%</code>)</li>
+            </ul>
+            <p>
+              It's important to note that the type of the result of an
+              arithmetic operation depends on the operand types. For example,
+              when two integers are divided, the result is also an integer, but
+              when a floating-point number is divided by an integer, the result
+              is a floating-point number.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int num1 = 5;
+int num2 = 10;
+int sum = num1 + num2; // 15
+int mult = num1 * num2; // 50
+int div = num2 / num1; // 2
+int sub = num2 - num1; // 5
+int mod = num2 % num1; // 0 (10 gets completely divided by 5 and it leaves no remainder)</code></pre>
+            </div>
+
+            <h3 class="mt-5">Type Casting</h3>
+            <p>
+              This is the process of converting variables from one data type to
+              another, like an integer to float. There are two types of casting,
+              implicit and explicit.
+            </p>
+
+            <h5 class="mt-3">1. Implicit Conversion</h5>
+            <p>
+              Implicit conversion is when a data is automatically converted to a
+              different type. Below is a program which is an example of that.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int num = 100;
+float copynum;
+copynum = num;
+//copynum now contains the value 100.0 which is a float because we initialised it to a variable of type float.</code></pre>
+            </div>
+
+            <h5 class="mt-4">2. Explicit Conversion</h5>
+            <p>
+              Explicit conversion is when a data is converted to a different
+              type by the programmer using the cast operator.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>double d = 9.99;
+int i = (int) d;
+// i now contains just 9 which is trucated version of 9.99</code></pre>
+            </div>
+            <p>
+              You may wonder why do we need to explicitly convert double to
+              integer, but in the other case when we converted integer to double
+              it was not required. The reason for this is that, Java implicitly
+              casts data when we move from lower order to higher order since all
+              the information is preserved.
+            </p>
+            <p>
+              Example, when we converted integer 100 to float 100.0, no
+              information was lost about the integer. But on the other side,
+              when we converted double 9.99 into integer 9, the precision after
+              the point was lost. So, Java needs the programmer to explicitly
+              specify that they intend to perform this type of cast where they
+              may end up losing information.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="strings-arrays" class="mb-5">
+            <h2>Strings</h2>
+            <p>
+              In Java, a String is a sequence of characters that represents
+              text. They can be declared and initialized as follows:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>String name = "Shubham";</code></pre>
+            </div>
+            <p>
+              Strings are represented as objects, which means they have methods
+              that can be used to manipulate their contents. For example, you
+              can concatenate two strings together using the "+" operator, or
+              find the length of a string using the
+              <code>length()</code> method.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>String fName = "Shubham";
+String lName = "S.";
+String fullName = fName + " " + lName;
+System.out.println(fullName); // Shubham S.
+System.out.println(fName.length()); // 7</code></pre>
+            </div>
+            <p>
+              Strings in Java are also immutable, which means that once a string
+              is created, its value cannot be changed. Instead, operations that
+              appear to modify a string actually create a new string with the
+              modified value.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>name[0] = "A";
+//This is not allowed</code></pre>
+            </div>
+
+            <h4 class="mt-4">
+              Some helpful methods that can be used on string objects:
+            </h4>
+            <ul>
+              <li>
+                <code>charAt(int index)</code>: Returns the character at the
+                specified index.
+              </li>
+              <li>
+                <code>substring(int beginIndex, int endIndex)</code>: Returns a
+                substring of the string starting from the specified begin index
+                and ending at the specified end index.
+              </li>
+              <li>
+                <code>toUpperCase()</code> and <code>toLowerCase()</code>: These
+                methods return a new string with all characters converted to
+                uppercase or lowercase, respectively.
+              </li>
+              <li>
+                <code>equals(Object obj)</code>: This method compares the string
+                to the specified object and returns true if they are equal.
+              </li>
+              <li>
+                <code>indexOf(char c)</code> or
+                <code>indexOf(String str)</code>: These methods return the index
+                of the first occurrence of the specified character or substring
+                in the string, respectively.
+              </li>
+            </ul>
+
+            <h3 class="mt-5">Arrays</h3>
+            <p>
+              An array in Java is a data structure that allows you to store a
+              fixed-size sequential collection of elements of the same data
+              type. It can be thought of as a container that holds a group of
+              items of the same type, such as integers or strings.
+            </p>
+            <p>
+              You can access each element in the array by its index, which is a
+              numeric value that represents its position in the array. The first
+              element in the array has an index of 0, the second has an index of
+              1, and so on.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>//Declaring an array to store 100 integers
+
+int arr[] = new int[100];
+arr[0] = 5; //setting the first element of the array
+arr[1] = 10; //setting the second element of the array
+arr[2] = 15; //setting the third element of the array
+arr[3] = 20; //setting the fourth element of the array
+
+System.out.println(arr[0]); //5 (prints the first element of the array)</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="control-flow" class="mb-5">
+            <h2>Conditional Execution</h2>
+            <p>
+              Conditional statements allow the program to make decisions based
+              on conditions. They allow a program to execute a certain section
+              of code only if a specified condition is true. There are two ways
+              by which we can do this:
+            </p>
+
+            <h3 class="mt-4">if-else</h3>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>String name = "ABC";
+if(name == "DEF"){
+    //Do something if name is DEF
+}else if(name == "ABC"){
+    //Do something if name is ABC
+}else{
+    //Do something if none of the above conditions are met
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">switch-case</h3>
+            <p>
+              The switch statement is used to perform different actions based on
+              different conditions. It evaluates the expression inside the
+              switch statement and then matches the value of that expression
+              against a set of possible case values. If the value matches any of
+              the case values, the corresponding code block is executed.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>String name = "DEF";
+switch(name){
+    case "ABC":
+        //Do something if name is ABC
+        break;
+    case "DEF":
+        //Do something if name is DEF
+        break;
+    default:
+        //Do something if none of the above cases match
+}</code></pre>
+            </div>
+            <p>
+              We have to use <code>break</code> in every case because if there
+              is no break statement, then once a case is met all the cases after
+              that are executed unless a break statement is found. Let's see
+              this through an example:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int day = 5;
+switch (day) {
+  case 1:
+    System.out.println("Monday");
+  case 2:
+    System.out.println("Tuesday");
+  case 3:
+    System.out.println("Wednesday");
+  case 4:
+    System.out.println("Thursday");
+  case 5:
+    System.out.println("Friday");
+  case 6:
+    System.out.println("Saturday");
+  case 7:
+    System.out.println("Sunday");
+}</code></pre>
+            </div>
+            <p>
+              Now, notice that there are no break statements inside any of these
+              cases. So, here the output of this program is:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded"><code>Friday
+Saturday
+Sunday</code></pre>
+            <p>
+              The <code>break</code> statement is optional in the default block,
+              since anyway that's the last code block and there's nothing which
+              will get executed after it.
+            </p>
+
+            <h2 class="mt-5">Conditional Loops</h2>
+            <p>
+              Conditional loops in Java are control structures that allow the
+              program to execute a certain block of code repeatedly, as long as
+              a certain condition is met. We have 3 types of conditional loops
+              in Java, let us see them one by one in detail.
+            </p>
+
+            <h3 class="mt-4">while</h3>
+            <p>
+              A <code>while</code> loop in Java is a control flow statement that
+              allows a block of code to be executed repeatedly while a
+              particular condition is true. The condition is evaluated at the
+              beginning of each iteration of the loop.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int i = 0;
+while(i < 10){
+    System.out.println("Print this line...");
+    i++;
+}</code></pre>
+            </div>
+            <p>
+              The program iterates over the values of <code>i</code> from 0 to
+              9, inclusive, and outputs a single line for each iteration. Once
+              <code>i</code> reaches 10, the loop terminates.
+            </p>
+
+            <h3 class="mt-4">do-while</h3>
+            <p>
+              A <code>do-while</code> loop in Java is similar to a
+              <code>while</code> loop, but with one key difference: the code
+              inside the loop is guaranteed to be executed at least once,
+              regardless of whether the condition is true or false.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int i = 1;
+do{
+    System.out.println("Printing...");
+    i++;
+}while(i < 0);</code></pre>
+            </div>
+            <p>
+              The condition is initially not met, however, it is evaluated after
+              the first iteration of the loop has been executed. As a result,
+              the statement within the <code>do</code> block will be executed
+              once.
+            </p>
+
+            <h3 class="mt-4">for</h3>
+            <p>
+              A <code>for</code> loop in Java is a control flow statement that
+              allows a block of code to be executed repeatedly for a fixed
+              number of times, based on a specified condition.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>for (initialization; condition; update) {
+    // code to be executed
+}</code></pre>
+            </div>
+            <p>Let us look at it through a simple example:</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>for(int i = 0; i < 10; i++){
+    System.out.println("Hello");
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="classes-objects" class="mb-5">
+            <h2>Class</h2>
+            <p>
+              In Java, a class is a blueprint or template for creating objects.
+              It defines the variables and methods that an object of that class
+              will have. You can think of a class as a complex type let's say
+              Fruits, each fruit will have a certain properties like it's weight
+              and amount of calories, it contains. Also, we can do something
+              with each fruit, like eat it.
+            </p>
+
+            <h3 class="mt-4">Defining a class</h3>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class Fruits {
+
+    //Instance variables
+    private int weight;
+    private int calories;
+
+    //Methods
+    public void eat(){
+        System.out.println("Fruit finished.");
+    }
+}</code></pre>
+            </div>
+
+            <h2 class="mt-5">Object</h2>
+            <p>
+              An object, is an instance of a class and is used to access the
+              variables and methods defined by the class. Each object of class
+              Fruits will have a local copies of the variables weight and
+              calories, therefore changing the weight of one object will not
+              affect others.
+            </p>
+
+            <h3 class="mt-4">Creating an object</h3>
+            <p>
+              In order to create objects, the type of variable is the class for
+              which we want to create that particular object. Objects are
+              created using the <code>new</code> operator, followed by a call to
+              the constructor of the class.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>ClassName objectName = new ClassName();</code></pre>
+            </div>
+            <p>
+              Like if we want to create an object of Fruits class we can write
+              the following code:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Fruits myBanana = new Fruits();</code></pre>
+            </div>
+
+            <h3 class="mt-4">Manipulating objects</h3>
+            <p>
+              We can define public mutator methods inside a class, which can be
+              used by the objects of that class to modify themselves.
+            </p>
+
+            <div class="note-box">
+              <h5><i class="fas fa-lightbulb me-2"></i>Note</h5>
+              <p class="mb-0">
+                <code>this</code> keyword is used to reference the current
+                object.
+              </p>
+            </div>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public void setDetails(int weight, int calories){
+    this.weight = weight;
+    this.calories = calories;
+}
+//this can be used as myBanana.setDetails(200,50) to set weight and calories of the object myBanana
+
+public void setWeight(int weight){
+    this.weight = weight;
+}
+//this can be used as myBanana.setWeight(200) to set weight of the object myBanana
+
+public void setCalories(int calories){
+    this.calories = calories;
+}
+//this can be used as myBanana.setCalories(50) to set calories of the object myBanana</code></pre>
+            </div>
+
+            <h3 class="mt-4">Reading variables</h3>
+            <p>
+              Public accessor methods can be defined inside a class in order to
+              read values of the variables inside the objects of that class.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public int getWeight(){
+    return this.weight;
+}
+//myBanana.getWeight() gives 200
+
+public int getCalories(){
+    return this.calories;
+}
+//myBanana.getCalories() gives 50</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="constructors" class="mb-5">
+            <h2>Constructors</h2>
+            <p>
+              These are special functions which have the same name as the class
+              without any return type and are called at the time of creation of
+              an object. We can create constructors in order to set up certain
+              properties of an object at the time of creation of that object.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public Fruits(int weight, int calories){
+    this.weight = weight;
+    this.calories = calories;
+}
+Fruits myApple = new Fruits(200, 50);
+//creates an object of class Fruits with weight equal to 200 and calories 50</code></pre>
+            </div>
+            <p>
+              By default, a class includes a non parameterized constructor when
+              no explicit constructor is defined. However, when a constructor is
+              explicitly defined, the default empty constructor is no longer
+              automatically generated.
+            </p>
+
+            <h3 class="mt-4">Overloading</h3>
+            <p>
+              Method overloading in Java allows a class to have multiple methods
+              with the same name, but different parameters.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public Fruits(int weight, int calories){
+    this.weight = weight;
+    this.calories = calories;
+}
+
+public Fruits(int weight){
+    this.weight = weight;
+    this.calories = 50;
+}
+
+// If constructor is called with 2 arguments we set the values for weight and calories, 
+// else if constructor is called by passing 1 argument we set the calories equal to 50 by default.
+
+//First Constructor new Fruits(200,50);
+//Second Constructor new Fruits(200);</code></pre>
+            </div>
+
+            <h3 class="mt-4">Copy constructor</h3>
+            <p>
+              A copy constructor in Java is a constructor that creates a new
+              instance of an object from an existing one. It takes an object of
+              the same class as input and then copies the properties of that
+              object to the newly created instance.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public Fruits(Fruits fruit){
+    this.weight = fruit.weight;
+    this.calories = fruit.calories;
+}</code></pre>
+            </div>
+
+            <div class="note-box">
+              <h5>
+                <i class="fas fa-exclamation-triangle me-2"></i>Note on Aliasing
+              </h5>
+              <p class="mb-0">
+                If the instance variables of an object are objects themselves
+                then we may end up aliasing instead of copying the variable.
+                This results in these variables sharing the same memory location
+                across different objects, and any modifications made to the
+                variables in one object will also be reflected in all other
+                objects.
+              </p>
+            </div>
+
+            <h3 class="mt-4">Deep Copying vs Shallow Copying</h3>
+            <p>
+              <strong>Shallow copying</strong> refers to creating a new object
+              and then copying the reference to the original object's memory
+              address into the new object. This means that the new object points
+              to the same memory location as the original object, and any
+              changes made to the new object will also affect the original
+              object.
+            </p>
+            <p>
+              <strong>Deep copying</strong>, on the other hand, creates a new
+              object and then copies all of the original object's attributes and
+              values to the new object. This means that the new object is
+              completely independent of the original object, and any changes
+              made to the new object will not affect the original object.
+            </p>
+
+            <p>Let's see this with the help of an example:</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Person{
+
+  //Instance variables
+  String name;
+  int age;
+  Fruits favouriteFruit;
+
+  public Person(String name, int age, Fruits favouriteFruit){
+    this.name = name;
+    this.age = age;
+    this.favouriteFruit = favouriteFruit;
+  }
+
+  public Person(Person p){
+    this.name = p.name;
+    this.age = p.age;
+    this.favouriteFruit = p.favouriteFruit; //shallow copy
+  }
+
+  public void changeFruitWeight(int weight){
+    this.name = "Ayush";
+    this.age = 25;
+    favouriteFruit.setWeight(weight);
+  }
+
+  public void printDetails(){
+    System.out.println(name+" "+age);
+    System.out.println("Details of favourite fruit:");
+    System.out.println("Weight: "+favouriteFruit.getWeight()+", Calories: "+favouriteFruit.getCalories());
+  }
+}
+
+public class MainClass{
+  public static void main(String[] args){
+    Fruits apple = new Fruits(150, 50); //An apple with 150gm weight and 50gm calories
+    Person person1 = new Person("Shubham", 20, apple);
+    //A person with name Shubham, age 20 and favourite fruit as the apple object.
+    
+    Person person2 = new Person(person1);
+    //Another person with the same properties.
+    
+    person2.changeFruitWeight(250);
+    //Sets the name of person2 as Ayush, age as 25 and changes the weight of favourite fruit to 250gm.
+    
+    person1.printDetails();
+    person2.printDetails();
+  }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre class="bg-dark text-light p-3 rounded"><code>Shubham 20
+Details of favourite fruit:
+Weight: 250, Calories: 50
+Ayush 25
+Details of favourite fruit:
+Weight: 250, Calories: 50</code></pre>
+
+            <p>
+              The weight of <code>person1</code> also gets changed, even though
+              we changed it only for <code>person2</code>. The reason for this
+              change is that since <code>favouriteFruit</code> instance variable
+              in the class <code>Person</code> is an object of type
+              <code>Fruits</code>, when we copy it from <code>person1</code> to
+              <code>person2</code> using the <code>=</code> symbol, it shares
+              the same memory location because it's a shallow copy.
+            </p>
+            <p>
+              Any changes made to the <code>favouriteFruit</code> of
+              <code>person2</code> will also affect the
+              <code>favouriteFruit</code> of <code>person1</code> and vice
+              versa.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="io" class="mb-5">
+            <h2>Input / Output in JAVA</h2>
+
+            <h3 class="mt-4">Taking Input</h3>
+            <p>
+              We use <code>input()</code> method to read data in Python,
+              similarly Java provides us various ways to take input from the
+              user. Simplest way to do this, would be to use the Console class
+              in Java. There are two methods defined within System which help us
+              read input using the console class. The methods are
+              <code>readLine()</code> and <code>readPassword()</code>.
+            </p>
+
+            <div class="note-box">
+              <h5><i class="fas fa-shield-alt me-2"></i>Security Note</h5>
+              <p class="mb-0">
+                <code>readPassword</code> returns an array of characters for
+                security reasons instead of a string.
+              </p>
+            </div>
+
+            <p>
+              Here's an example to demonstrate the use of Console class, for the
+              purpose of taking inputs:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Console cons = System.console();
+String username = cons.readLine("Enter your username: ");
+//whatever is read from readLine is stored in a string.
+char[] password = cons.readPassword("Enter your password: ");
+//whatever is read from readPassword is stored in an array of characters.</code></pre>
+            </div>
+
+            <p>
+              There are better ways to take inputs in Java, like the
+              <code>Scanner</code> class which gives more control over which
+              types of inputs do we want to take. For example taking a single
+              integer or a complete line of text.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Scanner in = new Scanner(System.in);
+String message = in.nextLine(); //reads one complete line of text
+int number = in.nextInt(); //reads one integer</code></pre>
+            </div>
+
+            <h3 class="mt-4">Printing Output</h3>
+            <p>
+              Similar to input, there are multiple ways by which we can output
+              something in Java. Two of the most simple ways are:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>System.out.print("Hello"); //prints the string to the console.
+System.out.print(" World");
+//Output:
+//Hello World
+
+System.out.println("Hello"); //println adds a new line after printing the string to the console
+System.out.print("World");
+//Output:
+//Hello
+//World</code></pre>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-1/summary.html"
+                  ><i class="fas fa-backward me-2"></i>Week 1</a
+                >
+              </li>
+              <li>
+                <a href="../week-3/summary.html"
+                  ><i class="fas fa-forward me-2"></i>Week 3</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
