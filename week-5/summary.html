@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 5 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-4/summary.html"
+                ><i class="fas fa-backward"></i> Week 4</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-6/summary.html"
+                ><i class="fas fa-forward"></i> Week 6</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 5</h1>
+            <p>Polymorphism, Java Generics, Reflection, and Type Erasure</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#polymorphism"
+                ><i class="fas fa-shapes me-2"></i>Polymorphism</a
+              >
+              <a class="nav-link" href="#structural-polymorphism"
+                ><i class="fas fa-sitemap me-2"></i>Structural Polymorphism</a
+              >
+              <a class="nav-link" href="#java-generics"
+                ><i class="fas fa-code me-2"></i>Java Generics</a
+              >
+              <a class="nav-link" href="#generic-data-structures"
+                ><i class="fas fa-list me-2"></i>Generic Structures</a
+              >
+              <a class="nav-link" href="#wildcards"
+                ><i class="fas fa-asterisk me-2"></i>Wildcards</a
+              >
+              <a class="nav-link" href="#reflection"
+                ><i class="fas fa-search me-2"></i>Reflection</a
+              >
+              <a class="nav-link" href="#type-erasure"
+                ><i class="fas fa-eraser me-2"></i>Type Erasure</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="polymorphism" class="mb-5">
+            <h2>Polymorphism</h2>
+            <p>
+              Polymorphism is a fundamental concept in object-oriented
+              programming (OOP) and is a powerful mechanism that allows objects
+              of different classes to be treated as if they were the same type.
+              It usually refers to the effect of dynamic dispatch, which allow
+              different classes to provide their own implementation of the same
+              method.
+            </p>
+            <p>Every object <em>knows</em> what it needs to do.</p>
+
+            <h3 id="structural-polymorphism" class="mt-4">
+              Structural Polymorphism
+            </h3>
+            <p>
+              Structural polymorphism in Java is the ability of different
+              objects to be treated as if they were the same type, even if they
+              are actually different. This is achieved through the use of
+              inheritance, interfaces, and method overloading.
+            </p>
+
+            <p>
+              <strong>Inheritance</strong> allows a new class to be based on an
+              existing class, inheriting its attributes and behaviors. This
+              means that objects of the new class can be treated as if they were
+              objects of the original class, and can be used interchangeably in
+              many situations.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Animal {
+   public void move() {
+      System.out.println("Animals can move");
+   }
+}
+
+class Dog extends Animal {
+   public void move() {
+      System.out.println("Dogs can walk and run");
+   }
+}
+
+public class Test{
+    public static void main(String[] args){
+        Animal animal = new Animal();
+        Animal dog = new Dog();
+        animal.move(); // Output: Animals can move
+        dog.move(); // Output: Dogs can walk and run
+    }
+}</code></pre>
+            </div>
+
+            <p class="mt-4">
+              <strong>Interfaces</strong> provide a way to define a common set
+              of methods that different classes can implement. This means that
+              objects of different classes that implement the same interface can
+              be treated as if they were the same type, even though they are
+              different classes.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>interface Shape {
+   public void draw();
+}
+
+class Circle implements Shape {
+   public void draw() {
+      System.out.println("Drawing a circle");
+   }
+}
+
+class Square implements Shape {
+   public void draw() {
+      System.out.println("Drawing a square");
+   }
+}
+public class Test{
+    public static void main(String[] args){
+        Shape shape1 = new Circle();
+        Shape shape2 = new Square();
+        shape1.draw(); // Output: Drawing a circle
+        shape2.draw(); // Output: Drawing a square
+    }
+}</code></pre>
+            </div>
+
+            <p class="mt-4">
+              <strong>Method overloading</strong> allows multiple methods with
+              the same name to be defined in a class, each with different
+              parameters. This means that different methods can be called with
+              the same name, depending on the type and number of parameters
+              passed to them.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Calculator {
+   public int add(int a, int b) {
+      return a + b;
+   }
+
+   public int add(int a, int b, int c) {
+      return a + b + c;
+   }
+}
+public class Test{
+    public static void main(String[] args){
+        Calculator calculator = new Calculator();
+        System.out.println(calculator.add(1, 2)); // Output: 3
+        System.out.println(calculator.add(1, 2, 3)); // Output: 6
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-5">Polymorphic Functions</h3>
+            <p>
+              Methods which depends on specific capabilities of an object are
+              known as polymorphic functions. It can work with any object as
+              long as it possesses the capability that this method requires in
+              order to work.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>interface Shape {
+    public double area();
+}
+
+class Circle implements Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double area() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Rectangle implements Shape {
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    public double area() {
+        return length * width;
+    }
+}
+
+public class Test {
+    public static void printArea(Shape shape) {
+        System.out.println("Area: " + shape.area());
+    }
+
+    public static void main(String[] args) {
+        Circle circle = new Circle(5);
+        Rectangle rectangle = new Rectangle(4, 6);
+
+        printArea(circle);
+        printArea(rectangle);
+    }
+}</code></pre>
+            </div>
+            <p>
+              Here, the <code>printArea</code> method is a polymorphic method as
+              it can work with objects of any type, as long as
+              <code>area</code> method is defined on that object.
+            </p>
+
+            <h4 class="mt-4">Type Consistency</h4>
+            <p>
+              However, we need to impose certain restrictions in case of some
+              methods. Let's take an example of a polymorphic method to copy an
+              array. It takes a source array and a target array and then copies
+              elements from the source to the target array.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static void copyArray(Object[] source, Object[] target) {
+    int limit = Math.min(src.length,tgt.length);
+    for (int i = 0; i < limit; i++) {
+        target[i] = source[i];
+    }
+}</code></pre>
+            </div>
+            <p>
+              Now, we need to ensure that the source array can be a subtype of
+              target array but not the vice versa. Target array should be type
+              compatible with the source array.
+            </p>
+
+            <h3 class="mt-5">Polymorphic Data Structures</h3>
+            <p>
+              A polymorphic data structure stores values of type Object which
+              allows us to store arbitrary elements in that data structure. A
+              simple example is as follows:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class LinkedList {
+    private Node head;
+
+    private class Node {
+        Object data;
+        Node next;
+
+        public Node(Object data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public void add(Object data) {
+        if (head == null) {
+            head = new Node(data);
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = new Node(data);
+        }
+    }
+
+    public Object get(int index) {
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            if (current == null) {
+                return null;
+            }
+            current = current.next;
+        }
+        return current.data;
+    }
+
+    public boolean remove(int index) {
+        //...
+    }
+}</code></pre>
+            </div>
+            <p>
+              This LinkedList stores data elements which are of type
+              <code>Object</code>, which means it can store data of any type.
+            </p>
+            <p>
+              The potential issues that may arise as a result of utilizing
+              polymorphic data structures are enumerated below:
+            </p>
+            <ul>
+              <li>
+                Type information is lost, we need to typecast each element
+              </li>
+              <li>Data can be homogenous</li>
+            </ul>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="java-generics" class="mb-5">
+            <h2>Java Generics</h2>
+            <p>
+              Java generics is a feature that enables programmers to create
+              flexible and reusable code. Generics allow classes, interfaces,
+              and methods to be written in a way that is independent of the data
+              types used, while still ensuring type safety at compile time.
+            </p>
+            <p>
+              This means that a single class or method can be used with
+              different types of data, making code more efficient, and easier to
+              read and maintain. In essence, generics make it possible to write
+              code that is more flexible and less error-prone, without
+              sacrificing performance or type safety.
+            </p>
+            <p>
+              We can define a type quantifier before return type between angle
+              brackets (<code>&lt;&gt;</code>)
+            </p>
+
+            <p>
+              Let's say we want to create a method that counts the number of
+              occurrences of a particular element in an array. We could define a
+              method like this:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static int countOccurrences(int[] array, int target) {
+    int count = 0;
+    for (int i = 0; i < array.length; i++) {
+        if (array[i] == target) {
+            count++;
+        }
+    }
+    return count;
+}</code></pre>
+            </div>
+
+            <p>
+              This method works fine for arrays consisting of integers, but what
+              if we want to count occurrences of different type of objects such
+              as Strings, double, etc. In that case, we will have to write
+              separate methods for each data type, but that would be repetitive
+              and error-prone.
+            </p>
+            <p>
+              This is where, we can make use of generics, we can write a single
+              method that works with any type of object by using a generic type
+              parameter.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static &lt;T&gt; int countOccurrences(T[] array, T target) {
+    int count = 0;
+    for (int i = 0; i < array.length; i++) {
+        if (array[i].equals(target)) {
+            count++;
+        }
+    }
+    return count;
+}</code></pre>
+            </div>
+            <p>
+              In this version of the method, the type parameter
+              <code>T</code> represents any type of object. We use the
+              <code>equals</code> method to compare elements and count the
+              occurrences.
+            </p>
+
+            <p>Now, we can use this method as follows:</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>String[] stringArray = { "apple", "orange", "banana", "apple" };
+System.out.println(countOccurrences(stringArray, "apple"));
+
+Double[] doubleArray = { 3.14, 2.71, 3.14, 1.41 };
+System.out.println(countOccurrences(doubleArray, 3.14));</code></pre>
+            </div>
+
+            <p>
+              We can use the <code>extends</code> keyword, to put constraints on
+              generic type parameters. Below is an example of a generic method
+              which copies elements from a source array into a target array.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static &lt;S extends T, T&gt; void copyArray(S[] source, T[] target) {
+    int limit = Math.min(src.length,tgt.length);
+    for (int i = 0; i < limit; i++) {
+        target[i] = source[i];
+    }
+}</code></pre>
+            </div>
+            <p>
+              This method defines two type parameters namely <code>T</code> and
+              <code>S</code>, where <code>S</code> must extend <code>T</code>,
+              thereby ensuring that the source array will be compatible with the
+              target array.
+            </p>
+
+            <h3 id="generic-data-structures" class="mt-5">
+              Polymorphic Data Structures using Generics
+            </h3>
+            <p>
+              Here's an example of how we can implement the same LinkedList
+              using Java Generics, in order to deal with the problems that can
+              occur using normal polymorphic data structures.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class LinkedList&lt;T&gt; {
+    private Node&lt;T&gt; head;
+
+    private static class Node&lt;T&gt; {
+        private T data;
+        private Node&lt;T&gt; next;
+
+        public Node(T data) {
+            this.data = data;
+        }
+    }
+
+    public void add(T data) {
+        Node&lt;T&gt; newNode = new Node&lt;&gt;(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node&lt;T&gt; currentNode = head;
+            while (currentNode.next != null) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
+        }
+    }
+
+    public void printList() {
+        Node&lt;T&gt; currentNode = head;
+        while (currentNode != null) {
+            System.out.print(currentNode.data + " ");
+            currentNode = currentNode.next;
+        }
+        System.out.println();
+    }
+}</code></pre>
+            </div>
+
+            <p>
+              We can make a LinkedList for only storing Integers as follows:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static void main(String[] args) {
+    LinkedList&lt;Integer&gt; myList = new LinkedList&lt;&gt;();
+    myList.add(1);
+    myList.add(2);
+    myList.add(3);
+    myList.printList(); // Output: 1 2 3
+}</code></pre>
+            </div>
+
+            <h4 class="mt-4">Hiding a Type Variable</h4>
+            <p>
+              We can define new type variable, which hides the type variable
+              that has already been defined. Like modifying the
+              <code>add</code> method like this will result in a new
+              <code>T</code> which is different from the <code>T</code> defined
+              at the class level. Quantifier <code>&lt;T&gt;</code> masks the
+              type parameter <code>T</code> of LinkedList.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public &lt;T&gt; void add(T data) {
+    Node&lt;T&gt; newNode = new Node&lt;&gt;(data);
+    if (head == null) {
+        head = newNode;
+    } else {
+        Node&lt;T&gt; currentNode = head;
+        while (currentNode.next != null) {
+            currentNode = currentNode.next;
+        }
+        currentNode.next = newNode;
+    }
+}</code></pre>
+            </div>
+
+            <h4 class="mt-4">Extending Subtypes</h4>
+            <p>
+              If <code>S</code> is compatible with <code>T</code>,
+              <code>S[]</code> is compatible with <code>T[]</code>.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>class Fruit{
+  //...
+}
+class Apple extends Fruit{
+  //...
+}
+class Mango extends Fruit{
+  //...
+}
+public class Main{
+  public static void main(String[] args){
+    Fruit[] fruitArr = new Apple[5];
+    //This is valid
+  }
+}</code></pre>
+            </div>
+            <p>
+              In Java, arrays typing is covariant, that means if
+              <code>Apple</code> extends <code>Fruit</code>, then
+              <code>Apple[]</code> extends <code>Fruit[]</code> too. This can
+              cause type errors during runtime as the following code becomes
+              invalid:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>fruitArr[0] = new Fruit(); //Error</code></pre>
+            </div>
+            <p>
+              Since <code>fruitArr</code> refers to an <code>Apple</code> array,
+              it cannot store objects of type <code>Fruit</code>.
+            </p>
+            <p>
+              Generic classes are not covariant, that means
+              <code>LinkedList&lt;Apple&gt;</code> is not compatible with
+              <code>LinkedList&lt;Fruit&gt;</code>.
+            </p>
+            <p>
+              This means that we cannot create a general method like below to
+              print a LinkedList of any type of fruits.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static void printList(LinkedList&lt;Fruit&gt; l){
+  Fruit current;
+  Iterator it = l.getIterator();
+  while(it.has_next()){
+    current = it.get_next();
+    System.out.println(current);
+  }
+}</code></pre>
+            </div>
+            <p>
+              But as we have seen earlier we can define type variables in order
+              to solve this issue
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static &lt;T&gt; void printList(LinkedList&lt;T&gt; l){
+  //...
+}</code></pre>
+            </div>
+
+            <h3 id="wildcards" class="mt-5">Wildcards</h3>
+            <p>
+              We can notice in the above example that the type variable
+              <code>T</code> is not being used inside the method
+              <code>printList</code>, so instead we can make use of wildcards.
+            </p>
+            <p>
+              In Java, wildcards are a type of generic parameter that allows us
+              to write more flexible and reusable code. They provide a way to
+              represent an unknown type or a type that is a subtype of a
+              specified type. Wildcards are represented using the
+              <code>?</code> symbol and can be used in three different forms:
+              <code>?</code>, <code>? extends</code>, and <code>? super</code>.
+            </p>
+
+            <p>
+              The first form <code>?</code> represents an unknown type and can
+              be used in situations where you don't care about the type of the
+              argument or variable. For example, the following method takes a
+              list of unknown type:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static void printList(LinkedList&lt;?&gt; list) {
+    for (Object obj : list) {
+        System.out.println(obj);
+    }
+}</code></pre>
+            </div>
+            <p>
+              This method can accept a <code>LinkedList</code> of any type, but
+              it can only read from it because the type is unknown.
+            </p>
+
+            <p>
+              The second form <code>? extends</code> is used to represent a
+              subtype of a specified type. For example, the following method
+              takes a list of objects that extend <code>Number</code>:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static void printNumbers(LinkedList&lt;? extends Number&gt; list) {
+    for (Number num : list) {
+        System.out.println(num);
+    }
+}</code></pre>
+            </div>
+            <p>
+              This method can accept a <code>LinkedList</code> of any type that
+              extends <code>Number</code>, such as <code>Integer</code>,
+              <code>Double</code>, or <code>BigDecimal</code>.
+            </p>
+
+            <p>
+              The third form <code>? super</code> is used to represent a
+              supertype of a specified type. For example, the following method
+              takes a list of objects that are supertypes of
+              <code>String</code>:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static void addStrings(LinkedList&lt;? super String&gt; list) {
+    list.add("hello");
+    list.add("world");
+}</code></pre>
+            </div>
+            <p>
+              This method can accept a <code>LinkedList</code> of any type that
+              is a supertype of <code>String</code>, such as
+              <code>Object</code>.
+            </p>
+
+            <p>
+              We can define variables of wildcard type, but we need to be
+              careful while assigning values.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>LinkedList&lt;?&gt; l = new LinkedList&lt;String&gt;();
+l.add(new Object()) //compiler error</code></pre>
+            </div>
+            <p>Compiler cannot guarantee type matches</p>
+
+            <h4 class="mt-4">Use of Bounded Wildcards</h4>
+            <p>
+              We can use bounded wildcards, for various works for example
+              copying a <code>LinkedList</code> from <code>source</code> to
+              <code>target</code>.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public static &lt;? extends T, T&gt; void copy(LinkedList&lt;?&gt; source, LinkedList&lt;T&gt; target){
+  //...
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="reflection" class="mb-5">
+            <h2>Reflection</h2>
+            <p>
+              The feature of reflection in Java provides the ability to inspect
+              and manipulate the behavior of classes, objects, and their members
+              at runtime, enabling us to examine the current state of a process.
+            </p>
+
+            <p><strong>Two components involved in reflection</strong></p>
+            <ul>
+              <li>
+                <strong>Introspection</strong><br />
+                It allows a program to observe it's own current state
+              </li>
+              <li class="mt-2">
+                <strong>Intercession</strong><br />
+                It allows a program to modify or alter it's own state and
+                interpretation
+              </li>
+            </ul>
+
+            <p>
+              We can check whether an object is an instance of a particular
+              class, by the following code:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Fruit apple = new Apple();
+//...
+if (apple instanceof Apple){
+  //...
+}</code></pre>
+            </div>
+
+            <p>
+              However, we can only perform this check if we know beforehand
+              which type we want to compare our object against. When
+              encountering such situations, we can make use of
+              <em>Introspection</em> to determine the class to which an object
+              belongs.
+            </p>
+            <p>
+              Presented here is a straightforward function called
+              <code>checkEqual</code>, which accepts two objects as arguments
+              and returns <code>true</code> if they are instances of the same
+              class, and <code>false</code> otherwise.
+            </p>
+            <p>
+              We cannot make use of <code>instanceof</code> in cases like these,
+              because we don't know which class to compare our object against.
+              We can import the reflection package for Introspection of our
+              objects.
+            </p>
+            <p>
+              We can extract the class information of any object by using the
+              method <code>getClass()</code>, which is available in the
+              reflection package. This gives us an object of type
+              <code>Class</code> that encodes the class information of the
+              object on which the <code>getClass()</code> method was invoked.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.lang.reflect.*;
+//...
+public static boolean checkEqual(Object o1, Object o2){
+  if(o1.getClass() == o2.getClass()){
+    return true;
+  }else{
+    return false;
+  }
+}</code></pre>
+            </div>
+            <p>
+              This method gets the class information for <code>o1</code> and
+              <code>o2</code>, and then returns <code>true</code> if both of
+              them are having the same information and
+              <code>false</code> otherwise.
+            </p>
+
+            <h4 class="mt-4">Creating Class object</h4>
+            <p>
+              To make complete use of <code>Class</code> objects, we should
+              store them in a variable of type <code>Class</code>. We can create
+              <code>Class</code> objects primarily using two ways.
+            </p>
+            <ul>
+              <li>
+                Getting the class information of a particular object
+                <div class="code-block-wrapper mt-2 mb-3">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>Class c1 = obj.getClass();</code></pre>
+                </div>
+              </li>
+              <li>
+                Creating class information for a particular class using it's
+                name
+                <div class="code-block-wrapper mt-2">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>Class c2 = Class.forName("Fruit");</code></pre>
+                </div>
+              </li>
+            </ul>
+
+            <h4 class="mt-4">Using the Class object</h4>
+            <p>
+              It is possible to create new instances of the class to which the
+              object <code>obj</code> belongs, using the following code.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Object o = c1.newInstance(); // creates a new instance of class which obj belongs to
+Object newFruit = c2.newInstance(); // creates a new instance of Fruit class</code></pre>
+            </div>
+            <p>
+              We can use this <code>Class</code> object to get more information
+              about the class such as <code>constructors</code>,
+              <code>methods</code> and <code>fields</code>. We have additional
+              classes such as <code>Constructor</code>, <code>Method</code> and
+              <code>Field</code> to introspect them further.
+            </p>
+            <p>
+              Now, in order to extract the information about
+              <code>constructor</code>, <code>method</code> and
+              <code>field</code> that are present in the class that
+              <code>obj</code> belongs to, we can make use of methods like
+              <code>getConstructors</code>, <code>getMethods</code> and
+              <code>getFields</code>.
+            </p>
+            <p>
+              We can store the results of these methods in an array of their
+              respective types.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Class c = obj.getClass();
+Constructor[] constructorArr = c.getConstructors();
+Method[] methodArr = c.getMethods();
+Field[] fieldArr = c.getFields();</code></pre>
+            </div>
+            <p>
+              These methods return the public <code>constructors</code>,
+              <code>methods</code> and <code>fields</code> respectively. In
+              order to get the public and private details together, we can use
+              methods like <code>getDeclaredConstructors</code>,
+              <code>getDeclaredMethods</code> and
+              <code>getDeclaredFields</code>.
+            </p>
+            <p>
+              We can introspect them further for details such as parameters that
+              a constructors takes, etc using the methods present in their
+              respective classes.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Class params[] = constructorArr[0].getParameterTypes();
+//Code to get the list of parameters that the first constructor takes</code></pre>
+            </div>
+            <p>
+              Similarly, we can invoke methods, set values of fields, and do
+              many more things.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>//...
+Class c = obj.getClass();
+Method[] method = c.getMethods();
+method[0].invoke(obj, args);
+//This invoke methods[0] on obj with arguments args
+Field[] field = c.getFields();
+field[2].set(obj, value1);
+//This sets the value of field[2] in obj to value1
+Object o = field[1].get(obj);
+//This gets the value of field[1] from obj</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="type-erasure" class="mb-5">
+            <h2>Type Erasure</h2>
+            <p>
+              Java does not keep different versions of a generic class as
+              separate types during runtime. Instead, at runtime all type
+              variables are promoted to <code>Object</code> or the upper bound
+              if any.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>LinkedList&lt;T&gt; --&gt; LinkedList&lt;Object&gt;
+LinkedList&lt;T extends Shape&gt; --&gt; LinkedList&lt;Shape&gt;</code></pre>
+            </div>
+
+            <p>
+              Since, Java preserves no information about T during runtime, we
+              cannot check if something is an instance of T.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>if (o instanceof T){
+  //...
+}
+//This is incorrect</code></pre>
+            </div>
+
+            <p>
+              Now since all the versions of a particular generic class gets
+              promoted to the same type during runtime, the following code will
+              return <code>true</code>.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>o1 = new LinkedList&lt;String&gt;
+o2 = new LinkedList&lt;Date&gt;
+if(o1.getClass() == o2.getClass()){ //returns true
+    //This will get executed
+}</code></pre>
+            </div>
+
+            <h4 class="mt-4">Incorrect Function Overloading</h4>
+            <p>
+              Due to type erasure we have to be careful while overloading
+              methods which involves parameters related to type <code>T</code>.
+              We cannot write two methods like this:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public void printList(LinkedList&lt;String&gt; l){
+  //...
+}
+public void printList(LinkedList&lt;Integer&gt; l){
+  //...
+}</code></pre>
+            </div>
+            <p>
+              Both these functions will have the same method signature after
+              type erasure.
+            </p>
+            <p>
+              Type Erasure convert <code>LinkedList&lt;T&gt;</code> to
+              <code>LinkedList&lt;Object&gt;</code> but basic types like
+              <code>int</code>, <code>double</code>, <code>char</code>, etc are
+              not compatible with <code>Object</code>, therefore we cannot use
+              these types in place of generic types.
+            </p>
+
+            <p>
+              Therefore, we have wrapper classes for each type which is
+              compatible with <code>Object</code>.
+            </p>
+            <ul>
+              <li>byte &rarr; <code>Byte</code></li>
+              <li>short &rarr; <code>Short</code></li>
+              <li>int &rarr; <code>Integer</code></li>
+              <li>long &rarr; <code>Long</code></li>
+              <li>float &rarr; <code>Float</code></li>
+              <li>double &rarr; <code>Double</code></li>
+              <li>boolean &rarr; <code>Boolean</code></li>
+              <li>char &rarr; <code>Character</code></li>
+            </ul>
+
+            <p>
+              We can convert between basic types and their corresponding Wrapper
+              class as follows:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int x = 10;
+Integer wrap_x = Integer(x);
+int unwrap_x = wrap_x.intValue();</code></pre>
+            </div>
+            <p>
+              There are similar methods like these for other types like
+              <code>byteValue</code>, <code>doubleValue</code>, and so on.
+            </p>
+
+            <h4 class="mt-4">Autoboxing</h4>
+            <p>
+              Java implicitly converts values between basic types and their
+              corresponding wrapper types.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>int x = 10;
+Integer wrap_x = x;
+int unwrap_x = wrap_x;</code></pre>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-4/summary.html"
+                  ><i class="fas fa-backward me-2"></i>Week 4</a
+                >
+              </li>
+              <li>
+                <a href="../week-6/summary.html"
+                  ><i class="fas fa-forward me-2"></i>Week 6</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
