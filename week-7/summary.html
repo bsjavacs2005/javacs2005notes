@@ -1,0 +1,2367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 7 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-6/summary.html"
+                ><i class="fas fa-backward"></i> Week 6</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-8/summary.html"
+                ><i class="fas fa-forward"></i> Week 8</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 7</h1>
+            <p>Errors, Exceptions, Packages, Assertions, and Logging</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#errors-exceptions"
+                ><i class="fas fa-exclamation-triangle me-2"></i>Errors &
+                Exceptions</a
+              >
+              <a class="nav-link" href="#error-hierarchy"
+                ><i class="fas fa-sitemap me-2"></i>Error Hierarchy</a
+              >
+              <a class="nav-link" href="#basics-handling"
+                ><i class="fas fa-shield-alt me-2"></i>Basics of Handling</a
+              >
+              <a class="nav-link" href="#exception-chaining"
+                ><i class="fas fa-link me-2"></i>Exception Chaining</a
+              >
+              <a class="nav-link" href="#packages"
+                ><i class="fas fa-box me-2"></i>Packages</a
+              >
+              <a class="nav-link" href="#visibility-modifiers"
+                ><i class="fas fa-eye me-2"></i>Visibility Modifiers</a
+              >
+              <a class="nav-link" href="#assertions"
+                ><i class="fas fa-check-double me-2"></i>Assertions</a
+              >
+              <a class="nav-link" href="#logging"
+                ><i class="fas fa-list-alt me-2"></i>Logging</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="errors-exceptions" class="mb-5">
+            <h2>Errors And Exceptions</h2>
+            <p>
+              Errors and exceptions are an inevitable part of programming. While
+              we aim for correctness, errors can occur due to various reasons,
+              such as invalid user input, resource limitations, or coding
+              mistakes.
+            </p>
+
+            <h3 class="mt-4">Types of Errors in Java</h3>
+            <ol>
+              <li class="mb-2">
+                <strong>External Errors</strong>: These include issues like
+                incorrect user input, unavailable resources, or hardware
+                malfunctions. For example:
+                <ul>
+                  <li>Typing an incorrect file name.</li>
+                  <li>Trying to print to a printer that is out of paper.</li>
+                  <li>Writing to a disk that is full.</li>
+                </ul>
+              </li>
+              <li class="mb-2">
+                <strong>Coding Mistakes</strong>: Errors resulting from flaws in
+                the code, such as:
+                <ul>
+                  <li>Accessing an array out of bounds.</li>
+                  <li>Using an invalid key in a hash table.</li>
+                  <li>
+                    Performing illegal arithmetic operations, such as division
+                    by zero.
+                  </li>
+                </ul>
+              </li>
+              <li class="mb-2">
+                <strong>Resource Limitations</strong>: Situations where external
+                resources are depleted, such as:
+                <ul>
+                  <li>Memory shortages.</li>
+                  <li>Disk space running out.</li>
+                </ul>
+              </li>
+            </ol>
+
+            <h3 class="mt-4">Signaling Errors</h3>
+            <p>
+              One way to signal an error is to return an invalid value, such as
+              <code>-1</code> to indicate the end of a file or
+              <code>null</code> to represent the absence of a valid result.
+              However, this approach has limitations, as it may not always be
+              possible when there is no clearly defined invalid value.
+            </p>
+            <p>This limitation brings to the topic of Exception handling.</p>
+            <p>
+              To handle these situations effectively, Java employs the concept
+              of exceptions, which allow programmers to signal and manage
+              abnormal conditions in the code. Exception handling provides a
+              structured approach to gracefully manage these errors, ensuring
+              that the program does not crash unexpectedly.
+            </p>
+
+            <h2 class="mt-5">Exception Handling in Java</h2>
+            <p>
+              Java provides a structured mechanism to handle errors gracefully
+              using <strong>exceptions</strong>. This ensures that errors do not
+              lead to program crash but allow recovery or meaningful failure
+              notifications.
+            </p>
+            <ol>
+              <li class="mb-2">
+                <strong>Throwing an Exception:</strong>
+                <ul>
+                  <li>
+                    Code that detects an error generates/throws an exception
+                    object.
+                  </li>
+                  <li>
+                    The exception contains details about the type and nature of
+                    the error.
+                  </li>
+                </ul>
+              </li>
+              <li class="mb-2">
+                <strong>Catching an Exception:</strong>
+                <ul>
+                  <li>
+                    The calling code "catches" the exception and takes
+                    corrective actions.
+                  </li>
+                  <li>
+                    Alternatively, the exception can propagate back up the
+                    calling chain.
+                  </li>
+                </ul>
+              </li>
+              <li class="mb-2">
+                <strong>Graceful Interruption:</strong>
+                <ul>
+                  <li>
+                    Instead of crashing, the program terminates gracefully or
+                    continues execution after addressing the issue.
+                  </li>
+                </ul>
+              </li>
+            </ol>
+
+            <p><strong>Example:</strong> Throwing and Catching Exceptions</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class ExceptionExample {
+
+    // Method to demonstrate throwing an exception
+    public static int divide(int a, int b) throws ArithmeticException {
+
+        // Check for division by zero
+        if (b == 0) {
+
+            // Throw an ArithmeticException with a meaningful message
+            throw new ArithmeticException("Division by zero is not allowed.");
+        }
+
+        // Perform division if no exception occurs
+        return a / b;
+    }
+
+    public static void main(String[] args) {
+
+        try {
+
+            // Attempt to divide numbers, expecting a successful result
+            System.out.println("Result: " + divide(10, 2));
+
+            // Attempt to divide by zero, which will throw an exception
+            System.out.println("Result: " + divide(10, 0));
+
+        } catch (ArithmeticException e) {
+
+            // Catch the exception and handle it gracefully
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+
+            // Optional: The `finally` block executes regardless of exceptions
+            System.out.println("Division operation completed.");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre class="bg-dark text-light p-3 rounded"><code>Result: 5
+Error: Division by zero is not allowed.
+Division operation completed.</code></pre>
+
+            <div class="note-box mt-4">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ul class="mb-0">
+                <li>
+                  <strong>Throwing an Exception:</strong> The
+                  <code>divide</code> method checks if the denominator
+                  <code>b</code> is zero. If <code>b == 0</code>, it throws an
+                  <code>ArithmeticException</code> with a custom message. This
+                  demonstrates how Java detects and raises errors.
+                </li>
+                <li>
+                  <strong>Catching an Exception:</strong> The
+                  <code>try</code> block in main attempts to execute code that
+                  might <code>throw</code> an exception. If an exception is
+                  thrown, the <code>catch</code> block catches it and prints a
+                  meaningful error message instead of crashing.
+                </li>
+                <li>
+                  <strong>Graceful Interruption:</strong> Instead of terminating
+                  abruptly, the program catches the exception and provides an
+                  error message. The program continues execution after handling
+                  the exception.
+                </li>
+                <li>
+                  <strong>Finally Block:</strong> The <code>finally</code> block
+                  is optional and always executes, even if no exception is
+                  thrown. It is useful for cleanup operations.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="error-hierarchy" class="mb-5">
+            <h2>Java's Classification of Errors</h2>
+
+            <h3 class="mt-4">Error Hierarchy in Java</h3>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fas fa-sitemap"></i> Structure
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Throwable
+    |
+    |-- Error (Unrecoverable JVM-level issues)
+    |
+    |-- Exception
+        |
+        |-- RuntimeException (Unchecked exceptions)
+        |
+        |-- Checked Exceptions</code></pre>
+            </div>
+            <p>
+              Java organizes errors into a hierarchy under the parent class
+              <code>Throwable</code>. The main categories are:
+            </p>
+
+            <h4 class="mt-4">Error</h4>
+            <p>
+              Errors represent severe issues that are usually beyond the control
+              of the programmer. They indicate problems that typically arise in
+              the Java Virtual Machine (JVM) itself and are unlikely to be
+              recoverable during runtime.
+            </p>
+            <p><strong>Key Characteristics:</strong></p>
+            <ul>
+              <li>
+                Errors are unchecked, meaning they are not required to be
+                declared or handled in the program.
+              </li>
+              <li>
+                Typically used for conditions that the program
+                <strong>cannot recover</strong> from or correct.
+              </li>
+              <li>Subclasses of the <code>Error</code> class.</li>
+            </ul>
+            <p><strong>Examples of Errors:</strong></p>
+            <ol>
+              <li>
+                <strong>OutOfMemoryError:</strong> Thrown when the JVM runs out
+                of memory.
+              </li>
+              <li>
+                <strong>StackOverflowError:</strong> Occurs when the call stack
+                exceeds its limit, usually due to infinite recursion.
+              </li>
+              <li>
+                <strong>VirtualMachineError:</strong> Represents serious errors
+                like JVM crashes or internal issues.
+              </li>
+            </ol>
+
+            <p><strong>Code Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class ErrorExample {
+    public static void main(String[] args) {
+        // Example of a StackOverflowError
+        causeStackOverflow();
+    }
+
+    public static void causeStackOverflow() {
+        // Recursive call without termination
+        causeStackOverflow();
+    }
+}</code></pre>
+            </div>
+
+            <h4 class="mt-5">Exception</h4>
+            <p>
+              Exceptions represent conditions that a program should handle
+              gracefully. They are recoverable, and handling them appropriately
+              allows the program to continue executing.
+            </p>
+            <p><strong>Key Characteristics:</strong></p>
+            <ul>
+              <li>
+                Exceptions are further divided into <strong>checked</strong> and
+                <strong>unchecked</strong> exceptions.
+              </li>
+              <li>Subclasses of the <code>Exception</code> class.</li>
+            </ul>
+
+            <h5 class="mt-4">RuntimeException / Unchecked Exception</h5>
+            <p>
+              Unchecked exceptions occur due to programming mistakes that could
+              have been avoided with proper input validation or checks. The
+              compiler does not enforce handling or declaring these exceptions.
+            </p>
+            <p><strong>Key Characteristics:</strong></p>
+            <ul>
+              <li>
+                Unchecked exceptions extend the
+                <code>RuntimeException</code> class.
+              </li>
+              <li>
+                They usually indicate
+                <strong>logical or programming errors</strong>.
+              </li>
+              <li>
+                Do not need to be declared using the
+                <code>throws</code> keyword.
+              </li>
+            </ul>
+            <p><strong>Examples of Unchecked Exceptions:</strong></p>
+            <ol>
+              <li>
+                <strong>ArithmeticException:</strong> Thrown during mathematical
+                errors (e.g., division by zero).
+              </li>
+              <li>
+                <strong>NullPointerException:</strong> Occurs when trying to use
+                an object reference that is <code>null</code>.
+              </li>
+              <li>
+                <strong>ArrayIndexOutOfBoundsException:</strong> Accessing an
+                array element with an invalid index.
+              </li>
+            </ol>
+
+            <p><strong>Code Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class UncheckedExceptionExample {
+
+    public static void main(String[] args) {
+
+        int[] numbers = {1, 2, 3};
+
+        try {
+            // Attempt to access an invalid index
+            System.out.println(numbers[5]);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+
+            // Handle the unchecked exception
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Error: Index 5 out of bounds for length 3</code></pre>
+
+            <h5 class="mt-5">Checked Exception</h5>
+            <p>
+              Checked exceptions represent exceptional conditions that the
+              program should anticipate and handle. The Java compiler enforces
+              that these exceptions must be declared using the
+              <code>throws</code> keyword or handled using a
+              <code>try-catch</code> block.
+            </p>
+            <p><strong>Key Characteristics:</strong></p>
+            <ul>
+              <li>
+                Checked exceptions extend the <code>Exception</code> class
+                (excluding <code>RuntimeException</code>).
+              </li>
+              <li>
+                Designed for situations where recovery is expected or required.
+              </li>
+              <li>
+                Often result from external issues like file handling, database
+                access, or user input.
+              </li>
+            </ul>
+            <p><strong>Examples of Checked Exceptions:</strong></p>
+            <ol>
+              <li>
+                <strong>IOException:</strong> Issues with input/output
+                operations, such as file handling.
+              </li>
+              <li>
+                <strong>SQLException:</strong> Errors related to database
+                access.
+              </li>
+              <li>
+                <strong>FileNotFoundException:</strong> Raised when a file
+                cannot be located.
+              </li>
+            </ol>
+
+            <p><strong>Code Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.io.*;
+
+public class CheckedExceptionExample {
+    public static void main(String[] args) {
+        try {
+            readFile("example.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
+    // Method that throws a checked exception
+    public static void readFile(String fileName) throws IOException {
+        FileReader file = new FileReader(fileName);
+        BufferedReader br = new BufferedReader(file);
+
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+
+        br.close();
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>An error occurred: example.txt (No such file or directory)</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ul class="mb-0">
+                <li>
+                  <code>FileReader</code> and <code>BufferedReader</code> are
+                  used to read a file.
+                </li>
+                <li>
+                  <code>FileReader</code> may throw an
+                  <code>IOException</code> if the file doesn't exist or can't be
+                  accessed.
+                </li>
+                <li>
+                  The <code>readFile</code> method declares
+                  <code>throws IOException</code>, meaning the caller must
+                  handle it.
+                </li>
+                <li>
+                  In <code>main()</code>, we use a <code>try-catch</code> block
+                  to handle the <code>IOException</code>.
+                </li>
+              </ul>
+              <p class="mt-2 mb-0">
+                Since <code>IOException</code> is a Checked Exception, the
+                compiler <strong>forces us to handle or declare it</strong>.
+              </p>
+            </div>
+
+            <h5 class="mt-5">User-Defined Checked Exception:</h5>
+            <p>
+              Java allows programmers to create their own checked exceptions.
+              This is useful when custom rules or constraints need to be
+              enforced.<br />
+              <strong>Note:</strong> This is also an example of
+              <strong>Custom Exception</strong>.
+            </p>
+
+            <p><strong>Code Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Custom exception class extending Exception (checked exception)
+class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message); // Pass the message to the parent Exception class
+    }
+}
+
+public class UserDefinedCheckedException {
+    // Method that throws a user-defined checked exception
+    public void validateAge(int age) throws InvalidAgeException {
+        if (age < 18) {
+            // Throw custom checked exception if age is less than 18
+            throw new InvalidAgeException("Age must be 18 or older.");
+        }
+        System.out.println("Age validation passed. You are eligible.");
+    }
+
+    public static void main(String[] args) {
+        UserDefinedCheckedException example = new UserDefinedCheckedException();
+
+        try {
+            // Test with invalid age
+            example.validateAge(16);
+        } catch (InvalidAgeException e) {
+            // Handle the exception
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+
+        try {
+            // Test with valid age
+            example.validateAge(20);
+        } catch (InvalidAgeException e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Caught Exception: Age must be 18 or older.
+Age validation passed. You are eligible.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-0">
+                <li class="mb-2">
+                  <strong
+                    >Custom Exception
+                    (<code>InvalidAgeException</code>):</strong
+                  >
+                  This class extends <code>Exception</code>, making it a
+                  <strong>checked exception</strong>. It has a constructor that
+                  takes a message and passes it to the parent class.
+                </li>
+                <li class="mb-2">
+                  <strong
+                    ><code>UserDefinedCheckedException</code> Class:</strong
+                  >
+                  Contains the <code>validateAge(int age)</code> method, which
+                  checks if age is <strong>less than 18</strong>. If met, it
+                  <strong>throws an</strong>
+                  <code>InvalidAgeException</code> with a custom message.
+                </li>
+                <li>
+                  <strong>Main Method (<code>main</code>):</strong> Creates an
+                  instance, calls <code>validateAge(16)</code> which throws an
+                  exception (caught and handled), and then calls
+                  <code>validateAge(20)</code> which passes and prints a success
+                  message.
+                </li>
+              </ol>
+            </div>
+
+            <div class="table-responsive mt-4">
+              <table class="table text-light table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Aspect</th>
+                    <th>Checked Exceptions</th>
+                    <th>Unchecked Exceptions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Declaration</strong></td>
+                    <td>Must be declared using <code>throws</code>.</td>
+                    <td>No need to declare.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Compiler Enforcement</strong></td>
+                    <td>Enforced by the compiler.</td>
+                    <td>Not enforced by the compiler.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Use Case</strong></td>
+                    <td>Anticipated conditions; recoverable.</td>
+                    <td>Programming errors; logical flaws.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Examples</strong></td>
+                    <td>
+                      <code>IOException</code>, <code>SQLException</code>.
+                    </td>
+                    <td>
+                      <code>ArithmeticException</code>,
+                      <code>NullPointerException</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Inheritance</strong></td>
+                    <td>
+                      Extends <code>Exception</code> class (not
+                      <code>RuntimeException</code>).
+                    </td>
+                    <td>Extends <code>RuntimeException</code> class.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="basics-handling" class="mb-5">
+            <h2>Basics of Exception Handling</h2>
+            <p>
+              Exception handling in Java revolves around three main constructs:
+            </p>
+            <ol>
+              <li>
+                <strong><code>try</code> Block</strong>: Encapsulates code that
+                may generate an exception.
+              </li>
+              <li>
+                <strong><code>catch</code> Block</strong>: Handles the exception
+                if it occurs.
+              </li>
+              <li>
+                <strong><code>finally</code> Block</strong>: Executes cleanup
+                code regardless of whether an exception was thrown.
+              </li>
+            </ol>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>try {
+    // Code that might throw an exception
+}
+catch (ExceptionType1 e) {
+    // Handle specific exception
+}
+catch (ExceptionType2 e) {
+    // Handle another type of exception
+}
+finally {
+    // Cleanup code
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">Catching Exceptions</h3>
+
+            <h4 class="mt-3">Single Exception</h4>
+            <p>Handle a specific type of exception.</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Demonstrating a single checked exception using IOException
+import java.io.IOException;
+
+public class SingleExceptionExample {
+    public static void main(String[] args) {
+        // Use a try-catch block to handle the IOException
+        try {
+            // Simulate an I/O operation that throws an exception
+            throw new IOException("Simulated I/O error");
+        } catch (IOException e) {
+            // Handle the exception and display the error message
+            System.out.println("Caught an IOException: " + e.getMessage());
+        }
+        // Program continues execution after handling the exception
+        System.out.println("Program execution continues smoothly.");
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Caught an IOException: Simulated I/O error
+Program execution continues smoothly.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-0">
+                <li class="mb-2">
+                  <strong>Try Block:</strong> The <code>try</code> block
+                  contains code that may throw an exception. In this case, the
+                  <code>throw</code> statement deliberately throws an
+                  <code>IOException</code> with a custom error message.
+                </li>
+                <li class="mb-2">
+                  <strong>Throw Statement:</strong> The
+                  <code>throw</code> statement creates and throws an
+                  <code>IOException</code> object, simulating an error scenario.
+                </li>
+                <li class="mb-2">
+                  <strong>Catch Block:</strong> Catches the thrown
+                  <code>IOException</code>. The <code>getMessage()</code> method
+                  retrieves the error message.
+                </li>
+                <li>
+                  <strong>Program Continuation:</strong> After the exception is
+                  handled, the program continues its execution.
+                </li>
+              </ol>
+            </div>
+
+            <h4 class="mt-4">Multiple Exception</h4>
+            <p>
+              Use multiple <code>catch</code> blocks for different exception
+              types. The blocks are evaluated in sequence.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Demonstrating multiple catch blocks to handle specific and general exceptions
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class MultipleExceptionsExample {
+    public static void main(String[] args) {
+
+        // Use a try-catch block to handle multiple exception types
+        try {
+
+            // Simulate a file-related error by throwing FileNotFoundException
+            throw new FileNotFoundException("File not found error");
+
+        } catch (FileNotFoundException e) {
+
+            // Catch and handle the more specific exception (FileNotFoundException)
+            System.out.println("Caught FileNotFoundException: " + e.getMessage());
+
+        } catch (IOException e) {
+
+            // Catch and handle the more general exception (IOException)
+            System.out.println("Caught IOException: " + e.getMessage());
+
+        }
+
+        // Program continues execution after handling the exceptions
+        System.out.println("Program execution continues smoothly.");
+    }
+}</code></pre>
+            </div>
+
+            <p>
+              <strong>Note:</strong> Arrange catch blocks from the most specific
+              to the most general. For example, <code>IOException</code> should
+              follow <code>FileNotFoundException</code>.
+            </p>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Caught FileNotFoundException: File not found error
+Program execution continues smoothly.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-0">
+                <li class="mb-2">
+                  <strong>Try Block:</strong> Contains code that throws a
+                  <code>FileNotFoundException</code>.
+                </li>
+                <li class="mb-2">
+                  <strong>Multiple Catch Blocks:</strong> The first block
+                  catches <code>FileNotFoundException</code> (specific). The
+                  second block catches <code>IOException</code> (general).
+                </li>
+                <li class="mb-2">
+                  <strong>Order of Catch Blocks:</strong> Arranged from most
+                  specific to most general to prevent compilation errors.
+                </li>
+                <li>
+                  <strong>Program Continuation:</strong> Resumes normal
+                  execution.
+                </li>
+              </ol>
+            </div>
+
+            <h3 class="mt-5">Throwing Exceptions</h3>
+            <p>
+              Java allows developers to explicitly throw exceptions using the
+              <code>throw</code> keyword. When a method can throw exceptions, it
+              must declare them using the <code>throws</code> keyword in the
+              method signature.
+            </p>
+            <p>
+              <strong>Compiler Enforcement:</strong> The Java compiler ensures
+              that checked exceptions are either caught or declared in the
+              calling code.
+            </p>
+
+            <p><strong>Code Example:</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Class to demonstrate exceptions with the `throws` keyword
+public class ThrowsKeywordExample {
+
+    /**
+     * This method validates a person's age for voting eligibility.
+     * It uses the `throws` keyword to declare that it can throw an
+     * IllegalArgumentException.
+     *
+     * @param age The age of the person.
+     * @throws IllegalArgumentException if the age is less than 18.
+     */
+    public void validateAge(int age) throws IllegalArgumentException {
+        // Check if the age is less than 18
+        if (age < 18) {
+            // Throw an IllegalArgumentException with a custom message
+            throw new IllegalArgumentException("Age must be 18 or above to vote.");
+        }
+        // If no exception occurs, print a success message
+        System.out.println("Age is valid for voting.");
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of the class
+        ThrowsKeywordExample example = new ThrowsKeywordExample();
+
+        // Test cases with different ages
+        int[] testAges = {16, 20, 15, 25};
+
+        for (int age : testAges) {
+            try {
+                // Validate the age using the method
+                example.validateAge(age);
+            } catch (IllegalArgumentException e) {
+                // Handle the exception and print the error message
+                System.out.println("Caught an exception: " + e.getMessage());
+            }
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Caught an exception: Age must be 18 or above to vote.
+Age is valid for voting.
+Caught an exception: Age must be 18 or above to vote.
+Age is valid for voting.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ul class="mb-0">
+                <li>
+                  <strong
+                    >Declaring Exceptions with <code>throws</code>:</strong
+                  >
+                  The <code>validateAge</code> method declares that it may throw
+                  an <code>IllegalArgumentException</code> using the
+                  <code>throws</code> keyword.
+                </li>
+                <li>
+                  <strong>Throwing Exceptions:</strong> The
+                  <code>throw</code> statement is used inside the method to
+                  explicitly throw the exception when the condition (age &lt;
+                  18) is met.
+                </li>
+                <li>
+                  <strong>Catching Exceptions:</strong> The
+                  <code>main</code> method uses a <code>try-catch</code> block
+                  to call the method and handle any exceptions that are thrown.
+                </li>
+              </ul>
+            </div>
+
+            <h3 class="mt-5">Custom Exceptions</h3>
+            <p>
+              Custom exceptions can be created by extending the
+              <code>Exception</code> class. This allows developers to define
+              application-specific errors.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Custom exception class to handle negative values
+class NegativeValueException extends Exception {
+    // Constructor to initialize the exception with a custom message
+    public NegativeValueException(String message) {
+        super(message); // Pass the message to the parent Exception class
+    }
+}
+
+// A class representing a simple linear list
+public class LinearList {
+
+    /**
+     * Adds a value to the list.
+     *
+     * @param value The value to be added.
+     * @throws NegativeValueException If the value is negative.
+     */
+    public void add(int value) throws NegativeValueException {
+        // Check if the value is negative
+        if (value < 0) {
+            // Throw a custom exception for negative values
+            throw new NegativeValueException("Negative value: " + value);
+        }
+        // Print a success message if the value is valid
+        System.out.println("Value added: " + value);
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of the LinearList class
+        LinearList list = new LinearList();
+
+        // Use a try-catch block to handle the custom exception
+        try {
+            // Attempt to add a negative value
+            list.add(-10);
+        } catch (NegativeValueException e) {
+            // Handle the custom exception and display the error message
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+
+        // Attempt to add a valid positive value
+        try {
+            list.add(15);
+        } catch (NegativeValueException e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+
+        // Program continues execution smoothly after handling exceptions
+        System.out.println("Program execution continues.");
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Caught Exception: Negative value: -10
+Value added: 15
+Program execution continues.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-0">
+                <li class="mb-2">
+                  <strong>Custom Exception Class:</strong> The
+                  <code>NegativeValueException</code> class extends
+                  <code>Exception</code>, making it a checked exception.
+                </li>
+                <li class="mb-2">
+                  <strong>Method Declaration:</strong> The
+                  <code>add</code> method declares that it may throw a
+                  <code>NegativeValueException</code>.
+                </li>
+                <li class="mb-2">
+                  <strong>Throwing the Custom Exception:</strong> Inside the
+                  <code>add</code> method, if the input is negative, a
+                  <code>NegativeValueException</code> is thrown.
+                </li>
+                <li>
+                  <strong>Handling the Custom Exception:</strong> The
+                  <code>main</code> method catches it and handles it gracefully.
+                </li>
+              </ol>
+            </div>
+
+            <h3 class="mt-5">Using <code>finally</code> for Cleanup</h3>
+            <p>
+              The <code>finally</code> block ensures that critical cleanup code
+              runs regardless of whether an exception occurs.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Demonstrating the use of finally for resource cleanup
+
+public class FinallyExample {
+    public static void main(String[] args) {
+
+        // Simulate a resource by using a custom resource object
+        CustomResource resource = null;
+
+        try {
+            // Allocate the resource
+            resource = new CustomResource();
+            System.out.println("Resource initialized successfully.");
+
+            // Simulate an operation that throws an exception
+            int result = 10 / 0; // This will cause an ArithmeticException
+            System.out.println("Operation result: " + result);
+
+        } catch (ArithmeticException e) {
+
+            // Handle the specific exception
+            System.out.println("Error occurred: " + e.getMessage());
+
+        } finally {
+
+            // Ensure the resource is cleaned up, regardless of an exception
+            if (resource != null) {
+                resource.cleanup();
+            }
+            System.out.println("Cleanup completed in finally block.");
+        }
+
+        // Program continues after exception handling
+        System.out.println("Program execution continues.");
+    }
+}
+
+// A custom resource class to simulate resource management
+class CustomResource {
+    // Constructor to initialize the resource
+    public CustomResource() {
+        System.out.println("CustomResource allocated.");
+    }
+
+    // Method to release the resource
+    public void cleanup() {
+        System.out.println("CustomResource cleaned up.");
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>CustomResource allocated.
+Resource initialized successfully.
+Error occurred: / by zero
+CustomResource cleaned up.
+Cleanup completed in finally block.
+Program execution continues.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-0">
+                <li class="mb-1">
+                  <strong>Custom Resource Simulation:</strong>
+                  <code>CustomResource</code> class simulates a resource needing
+                  manual cleanup.
+                </li>
+                <li class="mb-1">
+                  <strong>The <code>try</code> Block:</strong> Initializes the
+                  resource and intentionally causes an arithmetic exception.
+                </li>
+                <li class="mb-1">
+                  <strong>The <code>catch</code> Block:</strong> Handles the
+                  <code>ArithmeticException</code>.
+                </li>
+                <li class="mb-1">
+                  <strong>The <code>finally</code> Block:</strong> Ensures the
+                  resource is cleaned up via the <code>cleanup</code> method,
+                  running unconditionally.
+                </li>
+                <li>
+                  <strong>Use <code>finally</code>:</strong> Ideal for releasing
+                  resources such as file handles, database connections, or
+                  network sockets.
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="exception-chaining" class="mb-5">
+            <h2>Exception Chaining</h2>
+            <p>
+              Java supports chaining exceptions to provide more context about an
+              error. The <code>Throwable</code> class provides methods such as
+              <code>getCause()</code> and <code>initCause()</code> to work with
+              chained exceptions.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Demonstrating exception chaining in Java
+public class ExceptionChainingExample {
+    public static void main(String[] args) {
+
+        try {
+
+            // Outer try-catch block to catch and handle RuntimeException
+
+            try {
+
+                // Inner try-catch block to simulate and handle an underlying exception
+                throw new IllegalArgumentException("Invalid input provided");
+
+            } catch (IllegalArgumentException e) {
+
+                // Wrap the original exception (cause) into a higher-level exception
+                throw new RuntimeException("Processing failed due to invalid input", e);
+            }
+
+        } catch (RuntimeException e) {
+
+            // Handle the chained RuntimeException and display its message
+            System.out.println("Caught Exception: " + e.getMessage());
+
+            // Retrieve and display the cause of the RuntimeException
+            Throwable cause = e.getCause();
+            if (cause != null) {
+                System.out.println("Caused by: " + cause.getMessage());
+            }
+        }
+
+        // Program execution continues after handling the exception
+        System.out.println("Program execution continues.");
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Caught Exception: Processing failed due to invalid input
+Caused by: Invalid input provided
+Program execution continues.</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-3">
+                <li class="mb-1">
+                  <strong>Inner <code>try-catch</code> Block:</strong> Simulates
+                  an error by throwing an <code>IllegalArgumentException</code>,
+                  catches it, and wraps it inside a
+                  <code>RuntimeException</code>.
+                </li>
+                <li class="mb-1">
+                  <strong>Outer <code>try-catch</code> Block:</strong> Catches
+                  the <code>RuntimeException</code> and retrieves the root cause
+                  using the <code>getCause()</code> method.
+                </li>
+                <li>
+                  <strong>Exception Chaining:</strong> Helps propagate the root
+                  cause while adding additional context at higher levels.
+                </li>
+              </ol>
+              <p class="mb-1"><strong>Methods Used:</strong></p>
+              <ul class="mb-0">
+                <li>
+                  <code>getMessage()</code>: Fetches the message of the
+                  exception.
+                </li>
+                <li>
+                  <code>getCause()</code>: Retrieves the cause of the current
+                  exception.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="packages" class="mb-5">
+            <h2>Packages</h2>
+            <p>
+              In Java, a package serves as an organizational unit for grouping
+              related classes and interfaces. Packages help prevent naming
+              conflicts by allowing developers to create unique namespaces. They
+              also facilitate better code organization and modularity.
+            </p>
+
+            <h3 class="mt-4">Using Packages</h3>
+            <p>
+              To use classes from a package, the <code>import</code> statement
+              is employed:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.math.BigDecimal; // Imports the BigDecimal class
+import java.math.*; // Imports all classes in the java.math package</code></pre>
+            </div>
+            <p>
+              <code>*</code> imports all classes in the specified package but
+              does not include sub-packages. For instance:
+            </p>
+            <ul>
+              <li>
+                <code>import java.math.*</code> imports all classes in
+                <code>java.math</code>, but not <code>java.math.geometry</code>.
+              </li>
+              <li>Writing <code>import java.*</code> is not allowed.</li>
+            </ul>
+
+            <h3 class="mt-4">Benefits of Packages</h3>
+            <ol>
+              <li class="mb-2">
+                <strong>Namespace Management</strong>: Prevents naming conflicts
+                by creating unique namespaces.
+              </li>
+              <li class="mb-2">
+                <strong>Code Organization</strong>: Packages group related
+                classes, making code easier to navigate and maintain.
+              </li>
+              <li class="mb-2">
+                <strong>Access Control</strong>: Packages define access levels
+                for classes and members (visibility modifiers control this).
+              </li>
+              <li>
+                <strong>Reusability and Modularity</strong>: Enable easy reuse
+                of code components.
+              </li>
+            </ol>
+
+            <h3 class="mt-4">Creating and Naming Packages</h3>
+            <p>
+              Developers can define custom packages by adhering to Java's naming
+              conventions. The convention for package names follows the reverse
+              of an organization's Internet domain name:
+            </p>
+            <div class="table-responsive">
+              <table class="table text-light table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Internet Domain</th>
+                    <th>Package Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>onlinedegree.iitm.ac.in</code></td>
+                    <td><code>in.ac.iitm.onlinedegree</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="mt-4">Defining a Package</h3>
+            <p>
+              To include a class in a specific package, add a package
+              declaration at the top of the <code>.java</code> file:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// File: in/ac/iitm/onlinedegree/Employee.java
+package in.ac.iitm.onlinedegree;
+
+/**
+ * Represents an Employee with a name.
+ */
+public class Employee {
+    private String name; // Employee's name
+
+    // Constructor to initialize the employee's name
+    public Employee(String name) {
+        this.name = name;
+    }
+
+    // Getter method for the employee's name
+    public String getName() {
+        return name;
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">Using a Package</h3>
+            <p>
+              Create a file <code>Main.java</code> in the root directory or
+              another package.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// File: Main.java
+// Import the Employee class from the specified package
+import in.ac.iitm.onlinedegree.Employee;
+
+/**
+ * Demonstrates the usage of packages in Java.
+ */
+public class Main {
+    public static void main(String[] args) {
+        // Create an Employee object
+        Employee emp = new Employee("John Doe");
+
+        // Access the public method of the Employee class
+        System.out.println("Employee Name: " + emp.getName());
+    }
+}</code></pre>
+            </div>
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Employee Name: John Doe</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-3">
+                <li class="mb-1">
+                  <strong>Package Declaration:</strong> The
+                  <code>package</code> statement at the top of
+                  <code>Employee.java</code> specifies that the class belongs to
+                  the <code>in.ac.iitm.onlinedegree</code> package.
+                </li>
+                <li class="mb-1">
+                  <strong>Import Statement:</strong> The
+                  <code>import</code> statement in <code>Main.java</code> makes
+                  the <code>Employee</code> class accessible.
+                </li>
+                <li>
+                  <strong>Folder Structure:</strong> By default, classes without
+                  a package declaration belong to an
+                  <strong>anonymous package</strong> shared by all classes in
+                  the same directory.
+                </li>
+              </ol>
+              <p class="mb-1"><strong>Directory Structure:</strong></p>
+              <pre
+                class="mb-0 border border-secondary p-2 rounded"
+                style="background: transparent"
+              ><code>root/
+├── in/
+│   ├── ac/
+│   │   ├── iitm/
+│   │   │   ├── onlinedegree/
+│   │   │   │   ├── Employee.java
+├── Main.java</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="visibility-modifiers" class="mb-5">
+            <h2>Visibility Modifiers</h2>
+            <p>
+              Visibility modifiers in Java allow developers to control access to
+              classes, methods, and variables. This ensures encapsulation, one
+              of the core principles of object-oriented programming (OOP).
+              Proper use of visibility modifiers leads to better code security,
+              modularity, and maintainability.
+            </p>
+
+            <h3 class="mt-4">Types of Visibility Modifiers:</h3>
+
+            <h4 class="mt-3">Public:</h4>
+            <ul>
+              <li>
+                Members marked as public are accessible everywhere — inside the
+                class, outside the class, and even in other packages.
+              </li>
+              <li>Used when a member needs to be globally accessible.</li>
+              <li>
+                <strong>Example</strong>: Frequently used in APIs or library
+                methods designed for external use.
+              </li>
+            </ul>
+
+            <h4 class="mt-3">Private:</h4>
+            <ul>
+              <li>
+                Members marked as private are accessible only within the
+                defining class.
+              </li>
+              <li>
+                Promotes encapsulation by hiding the implementation details.
+              </li>
+              <li>
+                Used to restrict direct access to sensitive data or internal
+                logic.
+              </li>
+              <li>
+                <strong>Example</strong>: Helper methods or internal state
+                variables.
+              </li>
+            </ul>
+
+            <h4 class="mt-3">Default (Package-Private):</h4>
+            <ul>
+              <li>
+                If no modifier is specified, the member or class has
+                package-private visibility.
+              </li>
+              <li>Accessible only within the same package.</li>
+              <li>
+                Useful for grouping related classes and providing access only to
+                those in the same module.
+              </li>
+            </ul>
+
+            <h4 class="mt-3">Protected:</h4>
+            <ul>
+              <li>
+                Members marked as protected are accessible:
+                <ul>
+                  <li>Within the same package.</li>
+                  <li>
+                    In subclasses, even if they are in a different package.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong>Special Rule</strong>: A subclass can make a protected
+                member public in its implementation, thus expanding its
+                visibility.
+              </li>
+              <li>
+                <strong>Use Case</strong>: Useful in inheritance when designing
+                extensible classes.
+              </li>
+            </ul>
+
+            <h3 class="mt-5">Code Example: Visibility Modifiers</h3>
+            <p>1. Create the <code>VisibilityExample</code> Class</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// File: in/ac/iitm/onlinedegree/VisibilityExample.java
+package in.ac.iitm.onlinedegree;
+
+/**
+ * Demonstrates different visibility modifiers.
+ */
+public class VisibilityExample {
+    public int publicVar = 100; // Accessible everywhere
+    private int privateVar = 200; // Accessible only within this class
+    int packagePrivateVar = 300; // Accessible only within the same package
+    protected int protectedVar = 400; // Accessible within package and in subclasses
+
+    // Public method: accessible everywhere
+    public void showPublic() {
+        System.out.println("Public Variable: " + publicVar);
+    }
+
+    // Private method: accessible only within this class
+    private void showPrivate() {
+        System.out.println("Private Variable: " + privateVar);
+    }
+
+    // Package-private method: accessible only within the same package
+    void showPackagePrivate() {
+        System.out.println("Package-Private Variable: " + packagePrivateVar);
+    }
+
+    // Protected method: accessible within package and subclasses
+    protected void showProtected() {
+        System.out.println("Protected Variable: " + protectedVar);
+    }
+
+    public void demonstratePrivateAccess() {
+        // Private members are accessible within the same class
+        showPrivate();
+    }
+}</code></pre>
+            </div>
+
+            <p>2. Create a Class in the Same Package</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// File: in/ac/iitm/onlinedegree/SamePackageAccess.java
+package in.ac.iitm.onlinedegree;
+
+/**
+ * Demonstrates access levels within the same package.
+ */
+public class SamePackageAccess {
+    public static void main(String[] args) {
+        VisibilityExample example = new VisibilityExample();
+
+        // Accessing public member
+        example.showPublic();
+
+        // Accessing package-private member
+        example.showPackagePrivate();
+
+        // Accessing protected member
+        example.showProtected();
+
+        // Accessing private member (will not compile if uncommented)
+        // example.showPrivate(); // ERROR: Private members are not accessible
+    }
+}</code></pre>
+            </div>
+
+            <p>3. Create a Class in a Different Package</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// File: DifferentPackageAccess.java
+package different;
+
+import in.ac.iitm.onlinedegree.VisibilityExample;
+
+/**
+ * Demonstrates access levels from a different package.
+ */
+public class DifferentPackageAccess extends VisibilityExample {
+    public static void main(String[] args) {
+        VisibilityExample example = new VisibilityExample();
+
+        // Accessing public member
+        example.showPublic();
+
+        // Accessing package-private member (will not compile if uncommented)
+        // example.showPackagePrivate(); // ERROR: Package-private members are not accessible outside the package
+
+        // Accessing protected member through inheritance
+        DifferentPackageAccess inherited = new DifferentPackageAccess();
+        inherited.showProtected();
+
+        // Accessing private member (will not compile if uncommented)
+        // example.showPrivate(); // ERROR: Private members are not accessible
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <p>For <code>SamePackageAccess</code> Class:</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Public Variable: 100
+Package-Private Variable: 300
+Protected Variable: 400</code></pre>
+            <p>For <code>DifferentPackageAccess</code> Class:</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Public Variable: 100
+Protected Variable: 400</code></pre>
+
+            <div class="note-box mt-3">
+              <h5><i class="fas fa-info-circle me-2"></i>Code Explanation</h5>
+              <ol class="mb-0">
+                <li class="mb-1">
+                  <strong>Public:</strong> Accessible in both
+                  <code>SamePackageAccess</code> and
+                  <code>DifferentPackageAccess</code>.
+                </li>
+                <li class="mb-1">
+                  <strong>Private:</strong> Only accessible within the
+                  <code>VisibilityExample</code> class. Demonstrated by calling
+                  <code>showPrivate()</code> within a
+                  <code>public</code> method.
+                </li>
+                <li class="mb-1">
+                  <strong>Package-Private:</strong> Accessible only in
+                  <code>SamePackageAccess</code> because it belongs to the same
+                  package.
+                </li>
+                <li>
+                  <strong>Protected:</strong> Accessible in
+                  <code>SamePackageAccess</code> (same package). Accessible in
+                  <code>DifferentPackageAccess</code> only through inheritance.
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="assertions" class="mb-5">
+            <h2>Assertions</h2>
+            <p>
+              In Java, when developing functions or methods, it is important to
+              ensure that the input parameters meet certain expectations or
+              constraints for the function to work correctly. If these
+              constraints are violated, the behavior of the program can become
+              unpredictable or erroneous.
+            </p>
+            <p>
+              To handle this, developers often rely on two primary mechanisms:
+              <strong>exceptions</strong> and <strong>assertions</strong>.
+            </p>
+            <ol>
+              <li>
+                <strong>Using Exceptions</strong>: Validates constraints and
+                throws an exception when violated.
+              </li>
+              <li>
+                <strong>Using Assertions</strong>: Validates assumptions during
+                development and testing but does not trigger during production
+                runtime.
+              </li>
+            </ol>
+
+            <h3 class="mt-4">Validating Constraints with Exceptions</h3>
+            <p>
+              For public functions that are accessed by external code, it is
+              common to enforce parameter constraints using exceptions. For
+              example: If a negative value is passed to the function, an
+              <code>IllegalArgumentException</code> is thrown. This approach
+              ensures that the function's contract is upheld and communicates
+              the error to the calling code.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class MyFunctionExample {
+    // Method to calculate the square root of x, assuming x >= 0
+    public static double myfn(double x) throws IllegalArgumentException {
+        // Check if x is less than 0 and throw an exception if true
+        if (x < 0) {
+            throw new IllegalArgumentException("x < 0: Cannot calculate the square root of a negative number.");
+        }
+        // Return the square root of x if valid
+        return Math.sqrt(x);
+    }
+
+    public static void main(String[] args) {
+        // Test cases to demonstrate the behavior of myfn
+
+        // Test case 1: Valid input (positive number)
+        try {
+            double result1 = myfn(16); // Expected output: 4.0
+            System.out.println("Square root of 16: " + result1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        // Test case 2: Valid input (0)
+        try {
+            double result2 = myfn(0); // Expected output: 0.0
+            System.out.println("Square root of 0: " + result2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        // Test case 3: Invalid input (negative number)
+        try {
+            double result3 = myfn(-4); // Should throw an exception
+            System.out.println("Square root of -4: " + result3);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage()); // Expected error message
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Square root of 16: 4.0
+Square root of 0: 0.0
+Error: x < 0: Cannot calculate the square root of a negative number.</code></pre>
+
+            <h3 class="mt-5">Using Assertions for Internal Checks</h3>
+            <p>
+              Assertions provide a lightweight mechanism for validating
+              assumptions during development. Unlike exceptions, assertions are
+              typically used for internal, private methods where parameter
+              constraints are assumed to be met by the developer's code.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class AssertionExample {
+    // Method to calculate the square root of x, assuming x >= 0 (checked with an assertion)
+    public static double myfn(double x) {
+        // Use assertion to ensure that x is non-negative
+        assert x >= 0 : "x must be non-negative"; // Throws AssertionError if x < 0
+        return Math.sqrt(x);
+    }
+
+    public static void main(String[] args) {
+        // Enabling assertions requires the JVM to be run with the -ea flag.
+        // Example: java -ea AssertionExample
+
+        // Test case 1: Valid input (positive number)
+        try {
+            double result1 = myfn(16); // Expected output: 4.0
+            System.out.println("Square root of 16: " + result1);
+        } catch (AssertionError e) {
+            System.out.println("Assertion failed: " + e.getMessage());
+        }
+
+        // Test case 2: Valid input (0)
+        try {
+            double result2 = myfn(0); // Expected output: 0.0
+            System.out.println("Square root of 0: " + result2);
+        } catch (AssertionError e) {
+            System.out.println("Assertion failed: " + e.getMessage());
+        }
+
+        // Test case 3: Invalid input (negative number)
+        try {
+            double result3 = myfn(-4); // Should throw AssertionError
+            System.out.println("Square root of -4: " + result3);
+        } catch (AssertionError e) {
+            System.out.println("Assertion failed: " + e.getMessage()); // Expected error message
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p>
+              <strong>Running the Program:</strong><br />
+              To run the program and ensure assertions are enabled, you must
+              specify the <code>-ea</code> (enable assertions) flag when running
+              the program. Here’s how you would run the program from the command
+              line:
+            </p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>java -ea AssertionExample</code></pre>
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Square root of 16: 4.0
+Square root of 0: 0.0
+Assertion failed: x must be non-negative</code></pre>
+
+            <h3 class="mt-5">Features of Assertions</h3>
+            <ol>
+              <li>
+                <strong>Abort on Failure:</strong> When an assertion fails, an
+                <code>AssertionError</code> is thrown, aborting the program.
+              </li>
+              <li>
+                <strong>Diagnostic Information:</strong> The error message and
+                stack trace help identify the source of the failure.
+              </li>
+              <li>
+                <strong>Not for Runtime Recovery:</strong> Assertions are not
+                meant to be caught or handled during runtime. They indicate
+                programming errors that need to be fixed during development.
+              </li>
+            </ol>
+
+            <h3 class="mt-5">Enabling and Disabling Assertions in Java</h3>
+            <p>
+              Assertions in Java can be enabled or disabled at runtime using JVM
+              options, providing flexibility without needing to modify or
+              recompile the code. This allows developers to control when and
+              where assertions should be active, aiding in debugging and
+              development while avoiding unnecessary overhead in production
+              environments.
+            </p>
+
+            <h4 class="mt-4">Runtime Configuration</h4>
+            <p>
+              <strong>Enable Assertions:</strong> Use <code>-ea</code> or
+              <code>-enableassertions</code>
+            </p>
+            <ul>
+              <li>Globally: <code>java -ea MyCode</code></li>
+              <li>
+                For a specific class:
+                <code>java -ea:com.example.MyClass MyCode</code>
+              </li>
+              <li>
+                For a package: <code>java -ea:com.example.package MyCode</code>
+              </li>
+            </ul>
+
+            <p>
+              <strong>Disable Assertions:</strong> Use <code>-da</code> or
+              <code>-disableassertions</code>
+            </p>
+            <ul>
+              <li>Globally: <code>java -da MyCode</code></li>
+              <li>
+                For a specific class:
+                <code>java -da:com.example.MyClass MyCode</code>
+              </li>
+              <li>
+                For a package: <code>java -da:com.example.package MyCode</code>
+              </li>
+            </ul>
+
+            <p>
+              <strong>Combining Options:</strong><br />
+              Java allows combining enabling and disabling assertions for
+              specific parts of the application. For example:
+            </p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>java -ea:com.example.package -da:com.example.package.MyClass MyCode</code></pre>
+
+            <h4 class="mt-4">Summary of Options</h4>
+            <div class="table-responsive">
+              <table class="table text-light table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Option</th>
+                    <th>Effect</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>-ea</code> or <code>-enableassertions</code></td>
+                    <td>
+                      Enable assertions globally or for specific classes or
+                      packages.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-da</code> or <code>-disableassertions</code></td>
+                    <td>
+                      Disable assertions globally or for specific classes or
+                      packages.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-ea:package.name</code></td>
+                    <td>
+                      Enable assertions for all classes in the specified
+                      package.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-ea:package.name.ClassName</code></td>
+                    <td>
+                      Enable assertions for a specific class in a package.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-da:package.name</code></td>
+                    <td>
+                      Disable assertions for all classes in the specified
+                      package.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-da:package.name.ClassName</code></td>
+                    <td>
+                      Disable assertions for a specific class in a package.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="mt-5">When to Use Assertions</h3>
+            <ul>
+              <li>
+                <strong>Development and Debugging:</strong> Use assertions to
+                validate assumptions and invariants during code development and
+                testing. Assertions should highlight unrecoverable, fatal errors
+                that indicate programming bugs.
+              </li>
+              <li>
+                <strong>Production Code:</strong> Assertions are disabled by
+                default in production to avoid runtime overhead.
+              </li>
+            </ul>
+
+            <h3 class="mt-5">Assertions vs. Exceptions</h3>
+            <div class="table-responsive">
+              <table class="table text-light table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>Assertions</th>
+                    <th>Exceptions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Purpose</strong></td>
+                    <td>Validate assumptions during testing</td>
+                    <td>Handle runtime errors gracefully</td>
+                  </tr>
+                  <tr>
+                    <td><strong>When Used</strong></td>
+                    <td>Development and debugging</td>
+                    <td>Production</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Runtime Behavior</strong></td>
+                    <td>Disabled in production</td>
+                    <td>Always enabled</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Handling</strong></td>
+                    <td>Do not catch</td>
+                    <td>Should be caught and handled</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="logging" class="mb-5">
+            <h2>Logging</h2>
+            <p>
+              Effective logging is essential for diagnosing issues and
+              maintaining traceability in software systems. While print
+              statements are a simple way to track program behavior, they lack
+              flexibility, clutter the code, and are difficult to manage in
+              complex systems. Logging provides a structured and configurable
+              solution for generating diagnostic messages, enabling developers
+              to monitor, debug, and audit their applications efficiently.
+            </p>
+
+            <h3 class="mt-4">The Need for Logging</h3>
+            <p>Print statements have significant drawbacks:</p>
+            <ul>
+              <li>They must be manually added or removed.</li>
+              <li>They produce unstructured output.</li>
+              <li>Turning them on or off requires modifying the code.</li>
+            </ul>
+            <p>Logging addresses these issues by:</p>
+            <ul>
+              <li>Organizing messages hierarchically by importance.</li>
+              <li>Providing metadata (e.g., timestamps, context).</li>
+              <li>Enabling external control via configuration files.</li>
+            </ul>
+
+            <h3 class="mt-4">Basics of Logging</h3>
+            <p>
+              The simplest way to log messages in Java is to use the global
+              logger:
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class LoggingExample {
+    public static void main(String[] args) {
+        // Obtain the global logger
+        Logger globalLogger = Logger.getGlobal();
+
+        // Example 1: Default logging behavior
+        System.out.println("Example 1: Default Logging Behavior");
+        globalLogger.info("Default: Application started.");
+        globalLogger.warning("Default: A potential issue detected.");
+        globalLogger.severe("Default: Critical error occurred!");
+
+        // Example 2: Suppress logging by setting level to OFF
+        System.out.println("\nExample 2: Logging Suppressed");
+        globalLogger.setLevel(Level.OFF); // Suppress all logs
+        globalLogger.info("This log will not be shown.");
+        globalLogger.warning("This log will not be shown either.");
+        globalLogger.severe("Even severe logs are suppressed.");
+
+        // Example 3: Customizing the log level
+        System.out.println("\nExample 3: Custom Log Level");
+        globalLogger.setLevel(Level.WARNING); // Log only WARNING and above
+        globalLogger.info("This INFO log is suppressed.");
+        globalLogger.warning("This WARNING log is displayed.");
+        globalLogger.severe("This SEVERE log is displayed.");
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <p>Example 1: Default logging Behaviour</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Example 1: Default Logging Behavior
+Jan 8, 2025, 10:30:15 PM LoggingExample main
+INFO: Default: Application started.
+Jan 8, 2025, 10:30:15 PM LoggingExample main
+WARNING: Default: A potential issue detected.
+Jan 8, 2025, 10:30:15 PM LoggingExample main
+SEVERE: Default: Critical error occurred!</code></pre>
+
+            <p>Example 2: Logging Suppressed</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Example 2: Logging Suppressed
+(No logs are displayed.)</code></pre>
+
+            <p>Example 3: Custom Log Level</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Example 3: Custom Log Level
+Jan 8, 2025, 10:30:15 PM LoggingExample main
+WARNING: This WARNING log is displayed.
+Jan 8, 2025, 10:30:15 PM LoggingExample main
+SEVERE: This SEVERE log is displayed.</code></pre>
+
+            <h3 class="mt-5">Custom Loggers</h3>
+            <p>
+              In Java, custom loggers allow you to organize and manage logging
+              more effectively, especially in larger projects. Loggers can be
+              structured hierarchically, similar to package names, providing
+              fine-grained control over logging for specific parts of your
+              application.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class CustomLoggerExample {
+    // Creating a custom logger
+    private static final Logger parentLogger = Logger.getLogger("in.ac.iitm");
+    private static final Logger childLogger = Logger.getLogger("in.ac.iitm.onlinedegree");
+
+    public static void main(String[] args) {
+        System.out.println("Custom Logger Example:");
+
+        // Example 1: Default logging behavior of custom loggers
+        System.out.println("\nExample 1: Default Logging Behavior");
+        parentLogger.info("Parent logger: This is an informational message.");
+        childLogger.info("Child logger: This is an informational message.");
+
+        // Example 2: Setting log levels for the parent logger
+        System.out.println("\nExample 2: Setting Parent Logger Level");
+        parentLogger.setLevel(Level.WARNING); // Logs only WARNING and SEVERE for parent and its children
+        parentLogger.info("Parent logger: This INFO message is suppressed.");
+        parentLogger.warning("Parent logger: This WARNING message is displayed.");
+        childLogger.info("Child logger: This INFO message is suppressed by the parent.");
+        childLogger.severe("Child logger: This SEVERE message is displayed.");
+
+        // Example 3: Setting log levels specifically for the child logger
+        System.out.println("\nExample 3: Setting Child Logger Level");
+        childLogger.setLevel(Level.INFO); // Logs INFO, WARNING, and SEVERE for the child logger
+        parentLogger.warning("Parent logger: This WARNING message is displayed.");
+        childLogger.info("Child logger: This INFO message is now displayed.");
+        childLogger.warning("Child logger: This WARNING message is displayed.");
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <p>Example 1: Default Logging Behavior</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Example 1: Default Logging Behavior
+Jan 8, 2025, 10:30:15 PM in.ac.iitm
+INFO: Parent logger: This is an informational message.
+Jan 8, 2025, 10:30:15 PM in.ac.iitm.onlinedegree
+INFO: Child logger: This is an informational message.</code></pre>
+            <p>Example 2: Setting Parent Logger Level</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Example 2: Setting Parent Logger Level
+Jan 8, 2025, 10:30:15 PM in.ac.iitm
+WARNING: Parent logger: This WARNING message is displayed.
+Jan 8, 2025, 10:30:15 PM in.ac.iitm.onlinedegree
+SEVERE: Child logger: This SEVERE message is displayed.</code></pre>
+            <p>Example 3: Setting Child Logger Level</p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Example 3: Setting Child Logger Level
+Jan 8, 2025, 10:30:15 PM in.ac.iitm
+WARNING: Parent logger: This WARNING message is displayed.
+Jan 8, 2025, 10:30:15 PM in.ac.iitm.onlinedegree
+INFO: Child logger: This INFO message is now displayed.
+Jan 8, 2025, 10:30:15 PM in.ac.iitm.onlinedegree
+WARNING: Child logger: This WARNING message is displayed.</code></pre>
+
+            <h3 class="mt-5">Logging Levels</h3>
+            <p>Java provides seven logging levels to categorize messages:</p>
+            <ol>
+              <li>SEVERE</li>
+              <li>WARNING</li>
+              <li>INFO (default)</li>
+              <li>CONFIG</li>
+              <li>FINE</li>
+              <li>FINER</li>
+              <li>FINEST</li>
+            </ol>
+            <p>You can control the level of logging:</p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>logger.setLevel(Level.FINE);</code></pre>
+            </div>
+            <ul>
+              <li>
+                Turn on all levels: <code>logger.setLevel(Level.ALL);</code>
+              </li>
+              <li>
+                Turn off logging: <code>logger.setLevel(Level.OFF);</code>
+              </li>
+            </ul>
+
+            <h3 class="mt-4">
+              Advanced Configurations and Advantages of Logging
+            </h3>
+            <p>
+              Logging behavior can also be controlled externally using a
+              configuration file. This allows you to adjust logging levels or
+              direct output without modifying the code.
+            </p>
+            <p><strong>Advantages of Logging:</strong></p>
+            <ul>
+              <li>
+                <strong>Structured Messages</strong>: Logs provide timestamps,
+                function names, and hierarchical organization.
+              </li>
+              <li>
+                <strong>Configurability</strong>: Messages can be filtered by
+                importance or category.
+              </li>
+              <li>
+                <strong>External Control</strong>: Logging properties can be
+                modified through configuration files.
+              </li>
+              <li>
+                <strong>Handlers</strong>: Logs can be processed by external
+                programs, enabling advanced features like filtering or
+                formatting.
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-6/summary.html"
+                  ><i class="fas fa-backward me-2"></i>Week 6</a
+                >
+              </li>
+              <li>
+                <a href="../week-8/summary.html"
+                  ><i class="fas fa-forward me-2"></i>Week 8</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
