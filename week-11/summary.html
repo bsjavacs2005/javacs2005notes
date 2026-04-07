@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 11 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-10/summary.html"
+                ><i class="fas fa-backward"></i> Week 10</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-12/summary.html"
+                ><i class="fas fa-forward"></i> Week 12</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 11</h1>
+            <p>
+              Monitors, Thread Lifecycle, Concurrent Programming, and
+              Thread-Safe Collections
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#thread-lifecycle"
+                ><i class="fas fa-heartbeat me-2"></i>Thread Lifecycle</a
+              >
+              <a class="nav-link" href="#monitors"
+                ><i class="fas fa-lock me-2"></i>Monitors in Java</a
+              >
+              <a class="nav-link" href="#reentrant-locks"
+                ><i class="fas fa-key me-2"></i>Reentrant Locks</a
+              >
+              <a class="nav-link" href="#thread-operations"
+                ><i class="fas fa-cogs me-2"></i>Thread Operations</a
+              >
+              <a class="nav-link" href="#thread-safe-collections"
+                ><i class="fas fa-boxes me-2"></i>Thread-Safe Collections</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="thread-lifecycle" class="mb-5">
+            <h2>The Lifecycle of a Java Thread</h2>
+            <p>
+              In Java, a thread goes through various states from the moment it
+              is created until it finishes execution. Understanding these states
+              is crucial for debugging concurrent programs. You can check a
+              thread's current state using the <code>t.getState()</code> method.
+            </p>
+
+            <h3 class="mt-4">The Six Thread States</h3>
+            <ol>
+              <li class="mb-2">
+                <strong>New:</strong> A thread is in this state when the object
+                is created using the <code>new</code> operator (e.g.,
+                <code>Thread t = new Thread()</code>) but the
+                <code>start()</code> method has not been called yet.
+              </li>
+              <li class="mb-2">
+                <strong>Runnable:</strong> After calling <code>start()</code>,
+                the thread becomes runnable. It is ready to be scheduled for
+                execution by the thread scheduler. Note that "Runnable" doesn't
+                necessarily mean it is actively running on the CPU at that exact
+                moment; it could be waiting for its time-slice.
+              </li>
+              <li class="mb-2">
+                <strong>Blocked:</strong> A thread enters this state when it is
+                waiting to acquire a lock to enter a
+                <code>synchronized</code> block or method. It is unblocked when
+                the lock becomes available.
+              </li>
+              <li class="mb-2">
+                <strong>Waiting:</strong> A thread is in a waiting state when it
+                temporarily suspends its execution by calling
+                <code>wait()</code>. It will remain in this state until another
+                thread wakes it up by calling <code>notify()</code> or
+                <code>notifyAll()</code>.
+              </li>
+              <li class="mb-2">
+                <strong>Timed Waiting:</strong> Similar to Waiting, but with a
+                specified time limit. A thread enters this state when calling
+                methods like <code>sleep(milliseconds)</code> or
+                <code>wait(timeout)</code>. It returns to the Runnable state
+                once the timer expires.
+              </li>
+              <li class="mb-2">
+                <strong>Terminated (Dead):</strong> The thread has finished
+                executing its <code>run()</code> method naturally, or it was
+                forcefully stopped due to an unhandled exception. Once a thread
+                is dead, it cannot be restarted.
+              </li>
+            </ol>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="monitors" class="mb-5">
+            <h2>Monitors and Synchronization in Java</h2>
+            <p>
+              Java natively supports the concept of Monitors. Every object in
+              Java can act as a monitor, meaning it can use a built-in lock to
+              enforce mutual exclusion. This ensures that only one thread can
+              execute a critical section of code at a time.
+            </p>
+
+            <h3 class="mt-4">The <code>synchronized</code> Keyword</h3>
+            <p>
+              You apply the <code>synchronized</code> keyword to methods or code
+              blocks. When a thread invokes a synchronized method, it must first
+              acquire the intrinsic lock of that object. If another thread
+              already holds the lock, the new thread is
+              <strong>Blocked</strong>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class BankAccount {
+    private double balance = 1000.0;
+
+    // Only one thread can execute this method at a time on a given object
+    public synchronized void deposit(double amount) {
+        balance += amount;
+    }
+
+    public synchronized void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+        }
+    }
+
+    // Unsynchronized method - multiple threads can call this simultaneously
+    public double getBalance() {
+        return balance; 
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">Synchronized Blocks</h3>
+            <p>
+              Sometimes you don't want to lock an entire method, just a small
+              critical section. You can use a synchronized block, explicitly
+              specifying the object whose lock you want to acquire.
+            </p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class DataProcessor {
+    private final Object lockObject = new Object();
+
+    public void process() {
+        System.out.println("Doing some independent work...");
+        
+        // Acquiring the lock on a specific object
+        synchronized(lockObject) {
+            System.out.println("Inside critical section.");
+            // Shared resource modification goes here
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">
+              Inter-Thread Communication: <code>wait()</code> and
+              <code>notify()</code>
+            </h3>
+            <p>
+              Inside a synchronized area, a thread might realize it cannot
+              proceed (e.g., trying to withdraw money, but the balance is too
+              low). Instead of looping endlessly ("busy waiting"), it should
+              call <code>wait()</code>.
+            </p>
+            <ul>
+              <li>
+                <strong><code>wait()</code>:</strong> The thread gives up the
+                lock and enters the Waiting state. It joins the object's
+                internal waiting queue.
+              </li>
+              <li>
+                <strong><code>notifyAll()</code>:</strong> Wakes up
+                <strong>all</strong> threads that are waiting on this object's
+                lock. They will then compete to re-acquire the lock.
+              </li>
+              <li>
+                <strong><code>notify()</code>:</strong> Wakes up a single,
+                arbitrary thread from the waiting queue.
+              </li>
+            </ul>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class SharedBuffer {
+    private boolean dataAvailable = false;
+
+    public synchronized void produce() {
+        dataAvailable = true;
+        System.out.println("Data produced!");
+        notifyAll(); // Wake up consumers waiting for data
+    }
+
+    public synchronized void consume() {
+        // Always use a while loop for wait() to handle spurious wakeups
+        while (!dataAvailable) {
+            try {
+                wait(); // Release the lock and wait
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrupted.");
+            }
+        }
+        System.out.println("Data consumed!");
+        dataAvailable = false;
+    }
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="reentrant-locks" class="mb-5">
+            <h2>Reentrant Locks</h2>
+            <p>
+              While the <code>synchronized</code> keyword is convenient, Java
+              provides a more flexible and explicit locking mechanism in the
+              <code>java.util.concurrent.locks</code> package: the
+              <code>ReentrantLock</code>.
+            </p>
+
+            <h3 class="mt-4">Using ReentrantLock</h3>
+            <p>
+              A <code>ReentrantLock</code> works similarly to a standard object
+              lock but requires you to manually call <code>lock()</code> and
+              <code>unlock()</code>. Because you manually acquire it, you
+              <strong>must</strong> ensure it gets released, even if an
+              exception occurs. Therefore, the <code>unlock()</code> call is
+              almost always placed inside a <code>finally</code> block.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Bank {
+    private Lock bankLock = new ReentrantLock();
+    private double[] accounts = new double[100];
+
+    public void transfer(int from, int to, double amount) {
+        bankLock.lock(); // Acquire the lock
+        try {
+            if (accounts[from] < amount) return;
+            accounts[from] -= amount;
+            accounts[to] += amount;
+        } finally {
+            bankLock.unlock(); // Always release the lock in finally block
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">Why is it called "Reentrant"?</h3>
+            <p>
+              A lock is "reentrant" if a thread that already holds the lock can
+              acquire it again without blocking itself. The lock maintains a
+              "hold count." Every time the owning thread calls
+              <code>lock()</code>, the count increases. Every time it calls
+              <code>unlock()</code>, the count decreases. The lock is only
+              released to other threads when the count reaches zero.
+            </p>
+            <p>
+              This is extremely useful when a locked method calls another method
+              that also requires the same lock. Without reentrancy, the thread
+              would deadlock itself.
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="thread-operations" class="mb-5">
+            <h2>Concurrent Programming: Thread Operations</h2>
+            <p>
+              When working with multiple threads, you need ways to coordinate
+              their execution, pause them, or signal them to stop.
+            </p>
+
+            <h3 class="mt-4">1. Thread.sleep()</h3>
+            <p>
+              <code>Thread.sleep(milliseconds)</code> causes the currently
+              executing thread to pause its execution for the specified
+              duration. This does not release any locks the thread holds. It is
+              useful for simulating work or pacing an application. Because
+              another thread might interrupt the sleeping thread, it throws an
+              <code>InterruptedException</code>.
+            </p>
+
+            <h3 class="mt-4">2. The <code>join()</code> Method</h3>
+            <p>
+              The <code>join()</code> method allows one thread to wait for the
+              completion of another. If Thread A calls
+              <code>ThreadB.join()</code>, Thread A will pause execution until
+              Thread B finishes completely.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class JoinExample {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = new Thread(() -> {
+            for (int i = 1; i <= 3; i++) {
+                System.out.println("Worker thread processing: " + i);
+                try { Thread.sleep(500); } catch (InterruptedException e) {}
+            }
+        });
+
+        worker.start();
+        
+        // The main thread will stop here and wait for 'worker' to finish
+        worker.join(); 
+        
+        System.out.println("Worker finished. Main thread resuming.");
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">3. Thread Interruption</h3>
+            <p>
+              You cannot safely "kill" a thread from the outside in Java
+              (methods like <code>stop()</code> are deprecated). Instead, you
+              politely ask it to stop using the <code>interrupt()</code> method.
+            </p>
+            <p>
+              If a thread is currently blocked in a <code>sleep()</code> or
+              <code>wait()</code> call, calling <code>interrupt()</code> on it
+              will immediately wake it up and throw an
+              <code>InterruptedException</code>. If the thread is executing
+              normally, calling <code>interrupt()</code> just sets a flag. The
+              thread itself should periodically check
+              <code>isInterrupted()</code> and decide how to terminate
+              gracefully.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class InterruptExample {
+    public static void main(String[] args) throws InterruptedException {
+        Thread task = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                // Periodically check if we have been asked to stop
+                if (Thread.currentThread().isInterrupted()) {
+                    System.out.println("Interrupted! Terminating early.");
+                    break;
+                }
+                System.out.print(i + " ");
+            }
+        });
+
+        task.start();
+        Thread.sleep(1); // Let it run for a tiny bit
+        
+        // Signal the thread to stop
+        task.interrupt(); 
+    }
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="thread-safe-collections" class="mb-5">
+            <h2>Thread-Safe Collections</h2>
+            <p>
+              Standard Java collections like <code>ArrayList</code>,
+              <code>HashMap</code>, and <code>HashSet</code> are
+              <strong>not</strong> thread-safe. If multiple threads try to add
+              or remove elements from a standard <code>ArrayList</code> at the
+              same time, it can result in corrupted data, infinite loops, or a
+              <code>ConcurrentModificationException</code>.
+            </p>
+            <p>
+              While you could manually wrap every collection operation in a
+              <code>synchronized</code> block, this is error-prone and severely
+              hurts performance because it prevents any parallel access. To
+              solve this, Java provides specialized concurrent collections in
+              the <code>java.util.concurrent</code> package.
+            </p>
+
+            <h3 class="mt-4">1. ConcurrentHashMap</h3>
+            <p>
+              <code>ConcurrentHashMap</code> is a highly optimized, thread-safe
+              alternative to <code>HashMap</code>. Instead of locking the entire
+              map during an update, it divides the map into segments (or
+              buckets) and only locks the specific segment being modified. This
+              allows multiple threads to read and write to different parts of
+              the map simultaneously without blocking each other.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
+
+public class ConcurrentMapExample {
+    public static void main(String[] args) {
+        // Safe for multiple threads to access simultaneously
+        Map&lt;String, Integer&gt; scores = new ConcurrentHashMap&lt;&gt;();
+        
+        scores.put("Alice", 10);
+        
+        // Thread-safe atomic operation: only puts if absent
+        scores.putIfAbsent("Bob", 20); 
+        
+        System.out.println(scores);
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">2. CopyOnWriteArrayList</h3>
+            <p>
+              <code>CopyOnWriteArrayList</code> is a thread-safe variant of
+              <code>ArrayList</code>. It achieves thread safety through a
+              radical approach: every time an element is added, modified, or
+              removed, it creates a brand new, completely separate copy of the
+              underlying array.
+            </p>
+            <p>
+              <strong>When to use it:</strong> Because copying arrays is
+              expensive, this collection is only suitable when you have
+              <em>many</em> threads reading the list, but very few threads
+              modifying it (e.g., maintaining a list of event listeners).
+              Reading operations never require locks and are extremely fast.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
+
+public class CopyOnWriteExample {
+    public static void main(String[] args) {
+        List&lt;String&gt; activeUsers = new CopyOnWriteArrayList&lt;&gt;();
+        
+        activeUsers.add("UserA");
+        activeUsers.add("UserB");
+        
+        // A thread can safely iterate over this list even if another
+        // thread adds/removes elements concurrently. The iterator works
+        // on a snapshot of the array taken at the time iterator() was called.
+        for (String user : activeUsers) {
+            System.out.println("Broadcasting to: " + user);
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-4">3. BlockingQueues</h3>
+            <p>
+              The <code>BlockingQueue</code> interface represents a queue that
+              is thread-safe and supports operations that wait for the queue to
+              become non-empty when retrieving an element, and wait for space to
+              become available in the queue when storing an element. They are
+              the backbone of the Producer-Consumer pattern.
+            </p>
+            <p>
+              Common implementations include
+              <code>ArrayBlockingQueue</code> (backed by a fixed-size array) and
+              <code>LinkedBlockingQueue</code>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+public class BlockingQueueExample {
+    public static void main(String[] args) throws InterruptedException {
+        // A queue with a strict limit of 5 items
+        BlockingQueue&lt;String&gt; queue = new ArrayBlockingQueue&lt;&gt;(5);
+
+        // put() will block (pause the thread) if the queue is full
+        queue.put("Task 1"); 
+        
+        // take() will block (pause the thread) if the queue is empty
+        String task = queue.take(); 
+        System.out.println("Processing: " + task);
+    }
+}</code></pre>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-10/summary.html"
+                  ><i class="fas fa-backward me-2"></i>Week 10</a
+                >
+              </li>
+              <li>
+                <a href="../week-12/summary.html"
+                  ><i class="fas fa-forward me-2"></i>Week 12</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
