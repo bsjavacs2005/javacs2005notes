@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 9 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-8/summary.html"
+                ><i class="fas fa-backward"></i> Week 8</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-10/summary.html"
+                ><i class="fas fa-forward"></i> Week 10</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 9</h1>
+            <p>
+              Optional Types, Collecting Results from Streams, Input/Output
+              Streams, and Serialization
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#optional-types"
+                ><i class="fas fa-box-open me-2"></i>Optional Types</a
+              >
+              <a class="nav-link" href="#composing-optionals"
+                ><i class="fas fa-link me-2"></i>Composing Optionals</a
+              >
+              <a class="nav-link" href="#collecting-results"
+                ><i class="fas fa-layer-group me-2"></i>Collecting Results</a
+              >
+              <a class="nav-link" href="#io-streams"
+                ><i class="fas fa-file-import me-2"></i>I/O Streams</a
+              >
+              <a class="nav-link" href="#serialization"
+                ><i class="fas fa-save me-2"></i>Serialization</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="optional-types" class="mb-5">
+            <h2>Optional Types</h2>
+            <p>
+              When dealing with operations like filtering a stream and finding
+              the maximum value, there is a possibility that the stream becomes
+              empty (e.g., the filter removes everything). In such cases,
+              returning a primitive or a normal object might lead to a
+              <code>NullPointerException</code>. Java solves this by using the
+              <code>Optional&lt;T&gt;</code> class, which acts as a container
+              that may or may not contain a non-null value.
+            </p>
+
+            <h3 class="mt-4">Handling Missing / Optional Values</h3>
+            <p>
+              When a method returns an <code>Optional</code>, you have several
+              ways to extract the value safely:
+            </p>
+
+            <ol>
+              <li class="mb-3">
+                <strong><code>.orElse(defaultValue)</code></strong
+                >: Provides a fallback value if the Optional is empty.
+              </li>
+              <li class="mb-3">
+                <strong><code>.orElseGet(Supplier)</code></strong
+                >: Computes a default value lazily only if the Optional is
+                empty.
+              </li>
+              <li class="mb-3">
+                <strong><code>.orElseThrow(ExceptionSupplier)</code></strong
+                >: Throws an exception if no value is present.
+              </li>
+            </ol>
+
+            <p><strong>Code Example: Extracting Values</strong></p>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.Optional;
+import java.util.stream.Stream;
+
+public class OptionalExtractionExample {
+    public static void main(String[] args) {
+        
+        // Simulating an empty stream by filtering out all elements
+        Optional&lt;Double&gt; maxRand = Stream.generate(Math::random)
+            .limit(100)
+            .filter(n -&gt; n &lt; 0.001) // Strict filter likely causing an empty stream
+            .max(Double::compareTo); // Returns Optional&lt;Double&gt; 
+
+        // 1. Using orElse()
+        Double val1 = maxRand.orElse(-1.0); // Returns -1.0 if maxRand is empty
+        System.out.println("Value from orElse: " + val1);
+
+        // 2. Using orElseGet()
+        Double val2 = maxRand.orElseGet(() -&gt; Math.random()); // Computes a default value lazily if maxRand is empty
+        System.out.println("Value from orElseGet: " + val2);
+
+        // 3. Using orElseThrow()
+        try {
+            Double val3 = maxRand.orElseThrow(IllegalStateException::new); // Throws an exception if maxRand is empty
+        } catch (IllegalStateException e) {
+            System.out.println("Exception caught: Stream was empty!");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-5">Ignoring Missing Values</h3>
+            <p>
+              Sometimes, you only want to execute code if the value is actually
+              present, completely ignoring the empty state.
+            </p>
+
+            <ul>
+              <li>
+                <strong><code>ifPresent(Consumer)</code></strong
+                >: Executes the block of code only if the value exists.
+                Otherwise, it does nothing.
+              </li>
+              <li>
+                <strong><code>ifPresentOrElse(Consumer, Runnable)</code></strong
+                >: Performs one action if present, and a different fallback
+                action if empty.
+              </li>
+            </ul>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class OptionalActionExample {
+    public static void main(String[] args) {
+        Optional&lt;Double&gt; val = Optional.of(42.5);
+        Optional&lt;Double&gt; emptyVal = Optional.empty();
+        
+        List&lt;Double&gt; results = new ArrayList&lt;&gt;();
+
+        // 1. ifPresent
+        val.ifPresent(v -&gt; results.add(v)); // Or results::add
+        System.out.println("Results list: " + results);
+
+        // 2. ifPresentOrElse
+        emptyVal.ifPresentOrElse(
+            v -&gt; results.add(v),
+            () -&gt; System.out.println("No max value found, skipping.")
+        );
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="mt-5">Creating an Optional Value</h3>
+            <p>
+              If you are writing a method that might not return a valid result
+              (like dividing by zero), you should return an
+              <code>Optional</code>
+            </p>
+            <ul>
+              <li>
+                <code>Optional.of(v)</code>: Creates an Optional containing the
+                value <code>v</code>. (Will throw an exception if
+                <code>v</code> is null)
+              </li>
+              <li>
+                <code>Optional.empty()</code>: Creates an empty Optional box.
+              </li>
+              <li>
+                <code>Optional.ofNullable(v)</code>: Automatically converts a
+                potentially null value into an Optional (returns empty if null).
+              </li>
+            </ul>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>public class OptionalCreation {
+    // Example of manually returning empty vs a value
+    public static Optional&lt;Double&gt; inverse(Double x) {
+        if (x == 0) {
+            return Optional.empty(); 
+        } else {
+            return Optional.of(1 / x);
+        }
+    }
+    
+    // Example using ofNullable for automatic handling
+    public static Optional&lt;Double&gt; inverseShorthand(Double x) {
+        return Optional.ofNullable(x == 0 ? null : 1 / x);
+    }
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="composing-optionals" class="mb-5">
+            <h2>Transforming and Composing Optionals</h2>
+
+            <h3 class="mt-4">
+              Passing on Optional Values with <code>map()</code>
+            </h3>
+            <p>
+              Just like with Streams, you can use the <code>map()</code> method
+              on an Optional. It applies a function to the value
+              <strong>only if it is present</strong>. If the input is empty, the
+              output remains an empty Optional.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Optional&lt;Double&gt; maxRand = Optional.of(5.0);
+
+// Applies the lambda only because maxRand has a value
+Optional&lt;Double&gt; maxRandSqr = maxRand.map(v -&gt; v * v);
+System.out.println(maxRandSqr.get()); // Outputs 25.0</code></pre>
+            </div>
+
+            <h3 class="mt-5">Composing with <code>flatMap()</code></h3>
+            <p>
+              A problem arises when composing functions that
+              <em>both</em> return Optionals. Suppose function
+              <code>f()</code> returns <code>Optional&lt;T&gt;</code>, and class
+              <code>T</code> has a method <code>g()</code> that returns
+              <code>Optional&lt;U&gt;</code>
+            </p>
+            <p>
+              If you use <code>map()</code>, you will end up with nested
+              Optionals: <code>Optional&lt;Optional&lt;U&gt;&gt;</code>. To
+              prevent this nesting and flatten the structure into a simple
+              <code>Optional&lt;U&gt;</code>, we use <code>flatMap()</code>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.Optional;
+
+public class FlatMapExample {
+    public static Optional&lt;Double&gt; inverse(Double x) {
+        if (x == 0) return Optional.empty();
+        return Optional.of(1 / x);
+    }
+
+    public static Optional&lt;Double&gt; squareRoot(Double x) { 
+        if (x &lt; 0) return Optional.empty();
+        return Optional.of(Math.sqrt(x));
+    }
+
+    public static void main(String[] args) {
+        Double x = 4.0;
+        
+        // Composing safe inverse and safe squareRoot. 
+        // flatMap prevents it from becoming Optional&lt;Optional&lt;Double&gt;&gt;
+        Optional&lt;Double&gt; result = inverse(x).flatMap(FlatMapExample::squareRoot);
+        
+        result.ifPresent(val -&gt; System.out.println("Result is: " + val)); // Outputs 0.5
+    }
+}</code></pre>
+            </div>
+
+            <div class="note-box mt-3">
+              <h5>
+                <i class="fas fa-info-circle me-2"></i>Converting Optional to
+                Stream
+              </h5>
+              <p class="mb-0">
+                If you have a <code>Stream&lt;Optional&lt;T&gt;&gt;</code> and
+                you want to extract only the present values into a
+                <code>Stream&lt;T&gt;</code>, you can pass it through a
+                <code>flatMap</code> using <code>Optional::stream</code>. This
+                effectively unwraps the present values and silently drops the
+                empty ones.
+              </p>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="collecting-results" class="mb-5">
+            <h2>Collecting Values from a Stream</h2>
+            <p>
+              Streams process data, but they don't store it. To gather the
+              processed elements back into a data structure (or summarize them),
+              we use terminal operations like <code>collect()</code> or
+              <code>toArray()</code>.
+            </p>
+
+            <h3 class="mt-4">Converting Streams to Data Structures</h3>
+            <ul>
+              <li>
+                <strong>To Array:</strong>
+                <code>mystream.toArray(String[]::new)</code>
+              </li>
+              <li>
+                <strong>To List:</strong>
+                <code>mystream.collect(Collectors.toList())</code>
+              </li>
+              <li>
+                <strong>To Set:</strong>
+                <code>mystream.collect(Collectors.toSet())</code>
+              </li>
+              <li>
+                <strong>To Custom Collection:</strong>
+                <code
+                  >mystream.collect(Collectors.toCollection(TreeSet::new))</code
+                >
+              </li>
+            </ul>
+
+            <h3 class="mt-5">Collecting into Maps</h3>
+            <p>
+              When collecting into a Map, you need to specify how to generate
+              the Key and the Value from each stream element using
+              <code>Collectors.toMap()</code>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>// Assuming a 'people' Stream of 'Person' objects
+Map&lt;Integer, Person&gt; idToPerson = people.collect(
+    Collectors.toMap(
+        Person::getId,        // Key Mapper
+        Function.identity()   // Value Mapper (the Person object itself)
+    )
+);</code></pre>
+            </div>
+
+            <p class="mt-3"><strong>Handling Duplicate Keys:</strong></p>
+            <p>
+              If your stream generates duplicate keys,
+              <code>Collectors.toMap</code> will throw an
+              <code>IllegalStateException</code>. To fix this, you provide a
+              third argument: a merging function.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>Map&lt;String, Integer&gt; nameToID = people.collect(
+    Collectors.toMap(
+        Person::getName, // Key
+        Person::getId,   // Value
+        (existingValue, newValue) -&gt; existingValue // Merge rule: keep the existing one
+    )
+); </code></pre>
+            </div>
+
+            <h3 class="mt-5">Grouping and Partitioning Values</h3>
+            <p>
+              The <code>Collectors</code> class provides powerful tools to
+              organize your stream data into groups based on specific criteria.
+            </p>
+
+            <ol>
+              <li class="mb-3">
+                <strong>Grouping (<code>groupingBy</code>):</strong> Creates a
+                Map where the keys are the grouping condition, and the values
+                are Lists of items that matched that condition.
+                <div class="code-block-wrapper mt-2">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>// Grouping persons by their names
+Map&lt;String, List&lt;Person&gt;&gt; nameToPersons = people.collect(
+    Collectors.groupingBy(Person::getName)
+);</code></pre>
+                </div>
+              </li>
+              <li>
+                <strong>Partitioning (<code>partitioningBy</code>):</strong> A
+                specialized form of grouping that divides the data into exactly
+                two groups: <code>true</code> and <code>false</code>, based on a
+                Predicate (condition).
+                <div class="code-block-wrapper mt-2">
+                  <div class="code-header">
+                    <div class="code-language">
+                      <i class="fab fa-java"></i> Java
+                    </div>
+                    <button class="copy-button">
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <pre><code>// Partitioning names starting with 'A' and the rest
+Map&lt;Boolean, List&lt;Person&gt;&gt; aAndOtherPersons = people.collect(
+    Collectors.partitioningBy(
+        p -&gt; p.getName().substring(0, 1).equals("A")
+    )
+);
+
+List&lt;Person&gt; startingLetterA = aAndOtherPersons.get(true);
+List&lt;Person&gt; others = aAndOtherPersons.get(false);</code></pre>
+                </div>
+              </li>
+            </ol>
+
+            <h3 class="mt-5">Storing Descriptive Statistics</h3>
+            <p>
+              If you have a stream and you want to know its count, min, max,
+              sum, and average simultaneously, you don't need to traverse the
+              stream multiple times. You can use
+              <code>summarizingInt</code>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.util.IntSummaryStatistics;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class StatsExample {
+    public static void main(String[] args) {
+        Stream&lt;String&gt; words = Stream.of("Java", "Stream", "API", "Is", "Great");
+
+        // Gathers statistics about the length of the strings
+        IntSummaryStatistics summary = words.collect(
+            Collectors.summarizingInt(String::length)
+        );
+
+        System.out.println("Count: " + summary.getCount());
+        System.out.println("Max length: " + summary.getMax());
+        System.out.println("Average length: " + summary.getAverage());
+    }
+}</code></pre>
+            </div>
+
+            <p>
+              <em
+                >Note: Java also provides <code>LongSummaryStatistics</code> and
+                <code>DoubleSummaryStatistics</code> for different numeric
+                types.</em
+              >
+            </p>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="io-streams" class="mb-5">
+            <h2>Input / Output Streams</h2>
+            <p>
+              In Java, reading from and writing to external sources (like files,
+              network connections, or the console) is handled via I/O Streams.
+              An I/O Stream represents an input source or an output destination.
+            </p>
+
+            <h3 class="mt-4">Byte Streams vs. Character Streams</h3>
+            <ul>
+              <li>
+                <strong>Byte Streams</strong> (<code>InputStream</code> /
+                <code>OutputStream</code>): Used to perform reading and writing
+                of 8-bit bytes. Useful for binary data like images or audio
+                files.
+              </li>
+              <li>
+                <strong>Character Streams</strong> (<code>Reader</code> /
+                <code>Writer</code>): Used to perform reading and writing of
+                16-bit unicode characters. Useful for text files.
+              </li>
+            </ul>
+
+            <h3 class="mt-4">Basic Text File Read/Write Example</h3>
+            <p>
+              Java provides wrapper classes like <code>BufferedReader</code> and
+              <code>BufferedWriter</code> to make file operations efficient and
+              simple.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.io.*;
+
+public class FileIOExample {
+    public static void main(String[] args) {
+        String fileName = "example.txt";
+
+        // WRITING TO A FILE
+        // The try-with-resources statement ensures streams are closed automatically
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("Hello, Welcome to Java I/O!");
+            writer.newLine();
+            writer.write("This is the second line.");
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred during writing: " + e.getMessage());
+        }
+
+        // READING FROM A FILE
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            System.out.println("\nReading from file:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred during reading: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Successfully wrote to the file.
+
+Reading from file:
+Hello, Welcome to Java I/O!
+This is the second line.</code></pre>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="serialization" class="mb-5">
+            <h2>Serialization</h2>
+            <p>
+              <strong>Serialization</strong> is the process of converting the
+              state of an object into a byte stream. This byte stream can be
+              saved to a database, sent across a network, or saved to a file.<br />
+              <strong>Deserialization</strong> is the reverse process: reading
+              the byte stream and converting it back into a Java object.
+            </p>
+
+            <h3 class="mt-4">The <code>Serializable</code> Interface</h3>
+            <p>
+              For an object to be serialized, its class must implement the
+              <code>java.io.Serializable</code> interface. This is a
+              <em>marker interface</em> (it has no methods) that simply tells
+              the Java Virtual Machine (JVM) that the objects of this class are
+              allowed to be serialized.
+            </p>
+
+            <h3 class="mt-4">Serialization Process Example</h3>
+            <p>
+              We use <code>ObjectOutputStream</code> to write the object, and
+              <code>ObjectInputStream</code> to read the object.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import java.io.*;
+
+// 1. Class must implement Serializable
+class Student implements Serializable {
+    private static final long serialVersionUID = 1L; // Recommended best practice
+    
+    int id;
+    String name;
+    
+    // transient keyword prevents a field from being serialized
+    transient String password; 
+
+    public Student(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+}
+
+public class SerializationExample {
+    public static void main(String[] args) {
+        Student s1 = new Student(101, "Alice", "secret123");
+        String filename = "student.ser";
+
+        // SERIALIZATION (Writing Object)
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(s1);
+            System.out.println("Object has been serialized.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // DESERIALIZATION (Reading Object)
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+            Student deserializedStudent = (Student) in.readObject();
+            
+            System.out.println("\nObject has been deserialized.");
+            System.out.println("ID: " + deserializedStudent.id);
+            System.out.println("Name: " + deserializedStudent.name);
+            // Password will be null because it was marked 'transient'
+            System.out.println("Password: " + deserializedStudent.password); 
+            
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+            </div>
+
+            <p><strong>Output:</strong></p>
+            <pre
+              class="bg-dark text-light p-3 rounded"
+            ><code>Object has been serialized.
+
+Object has been deserialized.
+ID: 101
+Name: Alice
+Password: null</code></pre>
+
+            <div class="note-box mt-4">
+              <h5>
+                <i class="fas fa-exclamation-triangle me-2"></i>The
+                <code>transient</code> Keyword
+              </h5>
+              <p class="mb-0">
+                If there are specific fields in your class that you do not want
+                to save or transmit (like sensitive passwords or temporary
+                states), you can mark them with the
+                <code>transient</code> keyword. When the object is serialized,
+                transient fields are ignored. Upon deserialization, they take
+                their default values (e.g., <code>null</code> for objects,
+                <code>0</code> for integers).
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-8/summary.html"
+                  ><i class="fas fa-backward me-2"></i>Week 8</a
+                >
+              </li>
+              <li>
+                <a href="../week-10/summary.html"
+                  ><i class="fas fa-forward me-2"></i>Week 10</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
