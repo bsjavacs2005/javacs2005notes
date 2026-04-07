@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java - Week 12 Summary</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="Java IIT MBS Logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"
+                ><i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../week-11/summary.html"
+                ><i class="fas fa-backward"></i> Week 11</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#"
+                ><i class="fas fa-flag-checkered"></i> Course End</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container content-container">
+        <div class="hero-content">
+          <div class="hero-text text-center">
+            <h1>Java - Week 12</h1>
+            <p>Graphical User Interfaces: A Bird's Eye View of Java Swing</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content-container my-5">
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="course-nav p-3 rounded">
+            <h5 class="mb-3">Table of Contents</h5>
+            <div class="nav flex-column">
+              <a class="nav-link active" href="#intro-to-swing"
+                ><i class="fas fa-window-maximize me-2"></i>Introduction to
+                Swing</a
+              >
+              <a class="nav-link" href="#creating-windows"
+                ><i class="fas fa-desktop me-2"></i>Creating a Window</a
+              >
+              <a class="nav-link" href="#basic-components"
+                ><i class="fas fa-toggle-on me-2"></i>Basic Components</a
+              >
+              <a class="nav-link" href="#layout-managers"
+                ><i class="fas fa-border-all me-2"></i>Layout Managers</a
+              >
+              <a class="nav-link" href="#event-handling"
+                ><i class="fas fa-hand-pointer me-2"></i>Event Handling</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <section id="intro-to-swing" class="mb-5">
+            <h2>Introduction to Java Swing</h2>
+            <p>
+              Up until now, all of our Java programs have interacted with the
+              user through the console (printing text and reading keyboard
+              input). While powerful, modern applications rely on Graphical User
+              Interfaces (GUIs) featuring windows, buttons, text fields, and
+              images.
+            </p>
+            <p>
+              <strong>Java Swing</strong> is a built-in toolkit that allows you
+              to create rich, interactive GUI applications. It sits on top of an
+              older toolkit called AWT (Abstract Window Toolkit) but provides
+              more modern, flexible, and "lightweight" components that look
+              consistent across different operating systems.
+            </p>
+
+            <div class="note-box mt-3">
+              <h5>
+                <i class="fas fa-info-circle me-2"></i>The
+                <code>javax.swing</code> Package
+              </h5>
+              <p class="mb-0">
+                To use Swing, you will heavily import classes from the
+                <code>javax.swing</code> package. A convention in Swing is that
+                almost all component class names start with the letter
+                <strong>'J'</strong> (e.g., <code>JButton</code>,
+                <code>JLabel</code>, <code>JFrame</code>).
+              </p>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="creating-windows" class="mb-5">
+            <h2>Creating a Window (JFrame)</h2>
+            <p>
+              The foundation of any Swing application is the window itself. In
+              Swing, the primary window is represented by the
+              <code>JFrame</code> class. A JFrame provides the title bar,
+              minimize/maximize/close buttons, and a blank canvas to hold other
+              components.
+            </p>
+
+            <h3 class="mt-4">Your First GUI Program</h3>
+            <p>
+              Let's look at the absolute minimum code required to display a
+              window on the screen.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import javax.swing.JFrame;
+
+public class MyFirstWindow {
+    public static void main(String[] args) {
+        // 1. Create the frame and set the title
+        JFrame frame = new JFrame("Hello Swing!");
+
+        // 2. Set the dimensions of the window (width, height in pixels)
+        frame.setSize(400, 300);
+
+        // 3. Define what happens when the user clicks the 'X' button.
+        // Without this, the window closes but the program keeps running in the background!
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // 4. Center the window on the screen (optional but nice)
+        frame.setLocationRelativeTo(null); 
+
+        // 5. Make the window visible. (Always do this last!)
+        frame.setVisible(true); 
+    }
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="basic-components" class="mb-5">
+            <h2>Adding Basic Components</h2>
+            <p>
+              An empty window isn't very useful. We need to add "Controls" or
+              "Components" to it. Here are three of the most common components
+              you will use:
+            </p>
+            <ul>
+              <li>
+                <strong><code>JLabel</code>:</strong> Used to display text or an
+                image. The user cannot edit it.
+              </li>
+              <li>
+                <strong><code>JTextField</code>:</strong> A single-line input
+                box where the user can type text.
+              </li>
+              <li>
+                <strong><code>JButton</code>:</strong> A clickable button.
+              </li>
+            </ul>
+
+            <h3 class="mt-4">Using a JPanel</h3>
+            <p>
+              While you can add components directly to a JFrame, it is best
+              practice to group them inside a <code>JPanel</code>. Think of a
+              JPanel as an invisible container or grouping board. You put your
+              buttons and text fields onto the panel, and then you put the panel
+              into the frame.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import javax.swing.*;
+
+public class ComponentExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Login Screen");
+        frame.setSize(300, 150);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create a Panel to hold our components
+        JPanel panel = new JPanel();
+
+        // Create the components
+        JLabel userLabel = new JLabel("Username:");
+        JTextField userText = new JTextField(15); // 15 columns wide
+        JButton loginButton = new JButton("Login");
+
+        // Add components to the panel
+        panel.add(userLabel);
+        panel.add(userText);
+        panel.add(loginButton);
+
+        // Add the panel to the frame
+        frame.add(panel);
+
+        frame.setVisible(true);
+    }
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="layout-managers" class="mb-5">
+            <h2>Layout Managers</h2>
+            <p>
+              If you run the previous example, you might notice the components
+              just flow next to each other. What if you want the button at the
+              bottom, or in a grid?
+            </p>
+            <p>
+              In Java Swing, you generally don't set exact X and Y coordinates
+              for buttons (though you can). Instead, you use
+              <strong>Layout Managers</strong>. These are algorithms that
+              automatically arrange your components, handling window resizing
+              gracefully.
+            </p>
+
+            <h3 class="mt-4">Common Layout Managers</h3>
+            <ol>
+              <li class="mb-3">
+                <strong><code>FlowLayout</code>:</strong> The default for
+                JPanels. It places components in a row, left to right. If it
+                runs out of space, it wraps to the next line.
+              </li>
+              <li class="mb-3">
+                <strong><code>BorderLayout</code>:</strong> The default for
+                JFrames. It divides the screen into five regions: North, South,
+                East, West, and Center.
+              </li>
+              <li class="mb-3">
+                <strong><code>GridLayout</code>:</strong> Arranges components in
+                a grid of evenly sized rows and columns (like a spreadsheet or a
+                calculator).
+              </li>
+            </ol>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import javax.swing.*;
+import java.awt.*; // Layout Managers are in the java.awt package
+
+public class LayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("BorderLayout Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set the layout manager of the frame
+        frame.setLayout(new BorderLayout());
+
+        // Add components to specific regions
+        frame.add(new JButton("Top (North)"), BorderLayout.NORTH);
+        frame.add(new JButton("Bottom (South)"), BorderLayout.SOUTH);
+        frame.add(new JButton("Left (West)"), BorderLayout.WEST);
+        frame.add(new JButton("Right (East)"), BorderLayout.EAST);
+        
+        // The Center region stretches to fill remaining space
+        JTextArea textArea = new JTextArea("Main working area (Center)");
+        frame.add(textArea, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+    }
+}</code></pre>
+            </div>
+          </section>
+
+          <hr class="my-5 border-color" />
+
+          <section id="event-handling" class="mb-5">
+            <h2>Event Handling: Making Things Interactive</h2>
+            <p>
+              A button that you can click is useless if it doesn't actually
+              <em>do</em> anything. In GUI programming, user actions (clicking a
+              button, typing a key, moving the mouse) generate
+              <strong>Events</strong>. To respond to an event, you must attach
+              an <strong>Event Listener</strong> to the component.
+            </p>
+
+            <h3 class="mt-4">The <code>ActionListener</code> Interface</h3>
+            <p>
+              For button clicks, we use the
+              <code>ActionListener</code> interface. When the button is clicked,
+              Java calls the <code>actionPerformed()</code> method inside the
+              listener.
+            </p>
+
+            <p>
+              Because <code>ActionListener</code> is a functional interface (it
+              has only one method), the modern, elegant way to write this in
+              Java is by using a <strong>Lambda Expression</strong>.
+            </p>
+
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <div class="code-language">
+                  <i class="fab fa-java"></i> Java
+                </div>
+                <button class="copy-button">
+                  <i class="fas fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre><code>import javax.swing.*;
+import java.awt.FlowLayout;
+
+public class EventExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Interactive App");
+        frame.setSize(300, 200);
+        frame.setLayout(new FlowLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextField textField = new JTextField(15);
+        JButton greetButton = new JButton("Say Hello");
+        JLabel resultLabel = new JLabel("...");
+
+        // --- EVENT HANDLING ---
+        // We add an ActionListener to the button using a Lambda expression
+        greetButton.addActionListener(event -> {
+            // This code runs ONLY when the button is clicked
+            String name = textField.getText();
+            
+            if (name.isEmpty()) {
+                resultLabel.setText("Please enter a name first!");
+            } else {
+                resultLabel.setText("Hello, " + name + "!");
+                // Clear the text field for the next entry
+                textField.setText(""); 
+            }
+        });
+
+        frame.add(new JLabel("Name: "));
+        frame.add(textField);
+        frame.add(greetButton);
+        frame.add(resultLabel);
+
+        frame.setVisible(true);
+    }
+}</code></pre>
+            </div>
+
+            <div class="note-box mt-4">
+              <h5><i class="fas fa-lightbulb me-2"></i>Pop-up Dialogs</h5>
+              <p class="mb-0">
+                Sometimes instead of updating a label, you want to show a quick
+                pop-up message to the user. Swing provides a very easy way to do
+                this using <code>JOptionPane</code>. <br /><br />
+                <code
+                  >JOptionPane.showMessageDialog(frame, "Operation
+                  Successful!");</code
+                >
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container content-container">
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <h5>Programming Concepts Using Java</h5>
+            <p>
+              An online companion for the Java programming course at IIT Madras
+              BS Degree program.
+            </p>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="../index.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="../week-11/summary.html"
+                  ><i class="fas fa-backward me-2"></i>Week 11</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-muted"
+                  ><i class="fas fa-flag-checkered me-2"></i>Course End</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; 2026 IIT Madras BS Degree Program. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/codeblocks.js"></script>
+  </body>
+</html>
